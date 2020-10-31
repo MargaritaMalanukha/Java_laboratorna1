@@ -1,14 +1,14 @@
 package com.Lab.products;
 
 public enum Fish implements Purchaseable {
-    SALMON("Лосось", 150),
-    CARP("Карась", 90),
+    SALMON("Лосось", 150.0),
+    CARP("Карась", 90.0),
     PERCH("Окунь", 95.9),
     PIKE("Щука", 97.3),
     ANCHOVY("Анчоус", 84.7);
 
-    private String title;
-    private double price;
+    private final String title;
+    private final double price;
 
     Fish(String title, double price) {
         this.title = title;

@@ -8,16 +8,16 @@ public class CountingHouse {
 
     private double money;
 
-    private final Cleaner cleaner;
-    private final Seller seller;
-    private final Manager manager;
+    private final Cleaner idealCleaner;
+    private final Seller idealSeller;
+    private final Manager idealManager;
     {
-            cleaner = new Cleaner("Ivan", "Ivanov");
-            cleaner.setWorkingHours(8);
-            seller = new Seller("Petr", "Petrov");
-            seller.setWorkingHours(9);
-            manager = new Manager("Bohdan", "Sidorov");
-            manager.setWorkingHours(7);
+            idealCleaner = new Cleaner("Ivan", "Ivanov");
+            idealCleaner.setWorkingHours(8);
+            idealSeller = new Seller("Petr", "Petrov");
+            idealSeller.setWorkingHours(9);
+            idealManager = new Manager("Bohdan", "Sidorov");
+            idealManager.setWorkingHours(7);
     }
 
     public void increaseMoney(double moneyToAdd) {
@@ -25,16 +25,16 @@ public class CountingHouse {
     }
 
     public void paySalary(Cleaner cleaner, Seller seller, Manager manager) {
-        if (cleaner.equals(this.cleaner)){
-            money -= this.cleaner.getSalary();
+        if (cleaner.equals(idealCleaner)){
+            money -= cleaner.getSalary();
             System.out.println("Cleaner " + cleaner.getName() + " " + cleaner.getSurname() + " got his salary.");
         }
-        if (seller.equals(this.seller)){
-            money -= this.seller.getSalary();
+        if (seller.equals(idealSeller)){
+            money -= seller.getSalary();
             System.out.println("Seller " + seller.getName() + " " + seller.getSurname() + " got his salary.");
         }
-        if (manager.equals(this.manager)){
-            money -= this.manager.getSalary();
+        if (manager.equals(idealManager)){
+            money -= manager.getSalary();
             System.out.println("Manager " + manager.getName() + " " + manager.getSurname() + " got his salary.");
         }
     }

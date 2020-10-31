@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 final public class Purchase {
 
-    private long purchaseId;
-    private ArrayList<Purchaseable> products = new ArrayList<>();
+    private final long purchaseId;
+    private final ArrayList<Purchaseable> products = new ArrayList<>();
 
     public Purchase() {
         purchaseId = hashCode();
@@ -16,10 +16,6 @@ final public class Purchase {
     public Purchase(long purchaseId)
     {
         this.purchaseId = purchaseId;
-    }
-
-    public Purchase(String products) {
-
     }
 
     public void add(Purchaseable product) { products.add(product); }
@@ -31,6 +27,18 @@ final public class Purchase {
 
     public long getPurchaseId() {
         return purchaseId;
+    }
+
+    public Purchaseable getElementById(int index) {
+        if (index >= products.size() || index < 0) {
+            throw new ArrayIndexOutOfBoundsException();
+        } else {
+            return products.get(index);
+        }
+    }
+
+    public int size() {
+        return products.size();
     }
 
     public ArrayList<Purchaseable> getProducts() {
@@ -47,8 +55,8 @@ final public class Purchase {
 
     public void printCheque() {
         System.out.println("----------CHEQUE----------");
-        System.out.println("Thank you for visiting us! ");
-        System.out.println("Your products: ");
+        System.out.println("Thank you for visiting us!");
+        System.out.println("Your products:");
         for (Purchaseable product : products) {
             System.out.println(product.toString());
         }

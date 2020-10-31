@@ -28,7 +28,7 @@ public class Manager extends Worker {
         reviews.add(new String(builder));
     }
 
-    public void printAllCustomersWithOpinion(){ //
+    public void printAllCustomersWithOpinion(){
         for (String review : reviews) {
             System.out.println(review.split(":")[0]);
         }

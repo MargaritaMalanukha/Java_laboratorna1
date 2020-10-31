@@ -4,12 +4,12 @@ public enum Fruit implements Purchaseable {
     APPLE("Яблоко", 23.2),
     PEAR("Груша", 20.7),
     ORANGE("Апельсин", 42.5),
-    GRAPE("Виноград", 20),
+    GRAPE("Виноград", 20.0),
     MELON("Дыня", 11.45),
     PINEAPPLE("Ананас", 50.62);
 
-    private String title;
-    private double price;
+    private final String title;
+    private final double price;
 
     Fruit(String title, double price) {
         this.title = title;

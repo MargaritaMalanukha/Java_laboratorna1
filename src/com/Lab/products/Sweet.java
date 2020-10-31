@@ -4,12 +4,12 @@ public enum Sweet implements Purchaseable {
     CANDIES("Конфеты", 60.3),
     COOKIE("Печенье", 70.2),
     CAKE("Торт", 120.99),
-    DONUT("Пончик", 35),
-    ICE_CREAM("Мороженое", 20),
-    CHOCOLATE("Шоколад", 25);
+    DONUT("Пончик", 35.0),
+    ICE_CREAM("Мороженое", 20.0),
+    CHOCOLATE("Шоколад", 25.0);
 
-    private String title;
-    private double price;
+    private final String title;
+    private final double price;
 
     Sweet(String title, double price) {
         this.title = title;

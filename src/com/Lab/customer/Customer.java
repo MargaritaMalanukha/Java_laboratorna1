@@ -56,7 +56,6 @@ public class Customer {
 
     public class Card {
 
-        private int cardId = hashCode();
         private double bonus;
         private final float percent = 1;
 
@@ -67,10 +66,6 @@ public class Customer {
 
         public double getBonus() {
             return bonus;
-        }
-
-        public int getCardId() {
-            return cardId;
         }
     }
 
