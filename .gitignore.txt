@@ -1,0 +1,4 @@
+.idea
+target
+Laboratorna1TP.iml
+src/test
