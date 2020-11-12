@@ -1,5 +1,9 @@
 .idea
+
 .git
+
 target
+
 Laboratorna1TP.iml
+
 pom.xml
