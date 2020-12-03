@@ -16,9 +16,9 @@ public class ProgramLogic {
 
     private final CountingHouse countingHouse = new CountingHouse();
 
-    private final Manager manager = new Manager("Alex", "Sokolov");
-    private final Seller seller = new Seller("John", "Smit");
-    private final Cleaner cleaner = new Cleaner("Jenny", "Scott");
+    private final Manager manager = new Manager("Alex", "Sokolov", 100);
+    private final Seller seller = new Seller("John", "Smit", 50);
+    private final Cleaner cleaner = new Cleaner("Jenny", "Scott", 70);
 
     private final ArrayList<Customer> customers = new ArrayList<Customer>();
 

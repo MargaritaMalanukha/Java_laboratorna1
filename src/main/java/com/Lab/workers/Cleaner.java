@@ -14,9 +14,10 @@ public class Cleaner extends Worker {
         surname = "";
     }
 
-    public Cleaner(String name, String surname) {
+    public Cleaner(String name, String surname, double bonus) {
         this.name = name;
         this.surname = surname;
+        this.bonus = bonus;
     }
 
     public void prepareRacks() {

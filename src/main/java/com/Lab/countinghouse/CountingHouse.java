@@ -12,11 +12,11 @@ public class CountingHouse {
     private final Seller idealSeller;
     private final Manager idealManager;
     {
-            idealCleaner = new Cleaner("Ivan", "Ivanov");
+            idealCleaner = new Cleaner("Ivan", "Ivanov", 0);
             idealCleaner.setWorkingHours(8);
-            idealSeller = new Seller("Petr", "Petrov");
+            idealSeller = new Seller("Petr", "Petrov", 0);
             idealSeller.setWorkingHours(9);
-            idealManager = new Manager("Bohdan", "Sidorov");
+            idealManager = new Manager("Bohdan", "Sidorov", 0);
             idealManager.setWorkingHours(7);
     }
 

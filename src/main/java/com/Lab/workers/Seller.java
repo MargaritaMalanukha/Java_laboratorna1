@@ -14,9 +14,10 @@ public class Seller extends Worker {
         surname = "";
     }
 
-    public Seller(String name, String surname) {
+    public Seller(String name, String surname, double bonus) {
         this.name = name;
         this.surname = surname;
+        this.bonus = bonus;
     }
 
     public double getMoney() {

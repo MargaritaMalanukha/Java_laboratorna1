@@ -16,9 +16,10 @@ public class Manager extends Worker {
         surname = "";
     }
 
-    public Manager(String name, String surname) {
+    public Manager(String name, String surname, double bonus) {
         this.name = name;
         this.surname = surname;
+        this.bonus = bonus;
     }
 
     public void getOpinion(Customer customer, String opinion) {

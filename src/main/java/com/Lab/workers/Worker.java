@@ -7,6 +7,7 @@ abstract public class Worker {
     protected String name;
     protected String surname;
     protected int salary;
+    protected double bonus;
     protected int workingHours;
 
     public void setWorkingHours(int workingHours) { this.workingHours = workingHours; }
@@ -32,4 +33,5 @@ abstract public class Worker {
     public String getName() { return name; }
     public String getSurname() { return surname; }
     public int getWorkingHours() { return workingHours; }
+    public double getBonus() { return bonus; }
 }
