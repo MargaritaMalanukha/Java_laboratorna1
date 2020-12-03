@@ -1,5 +1,7 @@
 package com.Lab.workers;
 
+import com.Lab.products.Purchaseable;
+
 import java.util.Objects;
 
 abstract public class Worker {
