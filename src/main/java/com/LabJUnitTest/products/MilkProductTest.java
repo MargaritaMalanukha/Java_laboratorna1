@@ -16,7 +16,7 @@ public class MilkProductTest {
     }
 
     @Test
-    public void testArrayListElementToString() {
+    public void ToString_WithButterAsOutputField_ShouldReturnNameAndPriceOfProductInString() {
         String result = listOfMilkProducts.get(4).toString();
 
         Assert.assertEquals("Название продукта: Масло, цена: 40.5", result);

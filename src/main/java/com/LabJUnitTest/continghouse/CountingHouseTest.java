@@ -18,7 +18,7 @@ public class CountingHouseTest {
     private final Manager manager = new Manager();
 
     @Test
-    public void testPaySalaryIfWorked() {
+    public void PaySalary_WithWorkedHoursAreEqualToNormal_ShouldReturnDecreasedMoney() {
         cleaner.setWorkingHours(8);
         seller.setWorkingHours(9);
         manager.setWorkingHours(7);
@@ -29,7 +29,7 @@ public class CountingHouseTest {
     }
 
     @Test
-    public void testPaySalaryIfNotWorked() {
+    public void PaySalary_WithWorkedHoursAreNotEqualToNormal_ShouldReturnNotChangedMoney() {
         cleaner.setWorkingHours(2);
         seller.setWorkingHours(1);
         manager.setWorkingHours(5);

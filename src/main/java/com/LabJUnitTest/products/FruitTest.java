@@ -16,7 +16,7 @@ public class FruitTest {
     }
 
     @Test
-    public void testArrayListElementToString() {
+    public void ToString_WithOrangeAsOutputField_ShouldReturnNameAndPriceOfProductInString() {
         String result = listOfFruit.get(2).toString();
 
         Assert.assertEquals("Название продукта: Апельсин, цена: 42.5", result);

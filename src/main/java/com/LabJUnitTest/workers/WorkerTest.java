@@ -14,30 +14,24 @@ public class WorkerTest {
     }
 
     @Test
-    public void testEqualsIfEqual() {
+    public void Equals_WithWorkerEqualToIdealWorkerOfHisType_ShouldReturnTrue() {
         Cleaner cleanerTest = new Cleaner();
         cleanerTest.setWorkingHours(8);
-        Boolean result = cleaner.equals(cleanerTest);
-
-        Assert.assertEquals(true, result);
+        Assert.assertTrue(cleaner.equals(cleanerTest));
     }
 
     @Test
-    public void testEqualsIfNotEqual() {
+    public void Equals_WithWorkerNonEqualToIdealWorkerOfHisType_ShouldReturnFalse() {
         Cleaner cleanerTest = new Cleaner();
         cleanerTest.setWorkingHours(6);
-        Boolean result = cleaner.equals(cleanerTest);
-
-        Assert.assertEquals(false, result);
+        Assert.assertFalse(cleaner.equals(cleanerTest));
     }
 
     @Test
-    public void testEqualsIfDifferentTypes() {
+    public void Equals_WithWorkerTypeNonEqualToIdealWorkerType_ShouldReturnFalse() {
         Manager manager = new Manager();
         manager.setWorkingHours(8);
-        Boolean result = cleaner.equals(manager);
-
-        Assert.assertEquals(false, result);
+        Assert.assertFalse(cleaner.equals(manager));
     }
 
 }

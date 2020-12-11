@@ -16,7 +16,7 @@ public class VegetableTest {
     }
 
     @Test
-    public void testArrayListElementToString() {
+    public void ToString_WithOnionAsOutputField_ShouldReturnNameAndPriceOfProductInString() {
         String result = listOfVegetable.get(4).toString();
 
         Assert.assertEquals("Название продукта: Лук, цена: 5.0", result);

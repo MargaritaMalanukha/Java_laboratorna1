@@ -9,16 +9,14 @@ public class RackTest {
     private Rack rack;
 
     @Test
-    public void testGenerateRack() {
+    public void GenerateRack_WithValidProductTitle_ShouldReturnInitializeAndFillNewRack() {
         rack = new Rack("Fish");
-
         Assert.assertEquals(5, rack.getProducts().size());
     }
 
     @Test
-    public void testGenerateWrongRack() {
+    public void GenerateRack_WithInvalidProductTitle_ShouldReturnEmptyRack() {
         rack = new Rack("wrongTitle");
-
         Assert.assertEquals(0, rack.getProducts().size());
     }
 

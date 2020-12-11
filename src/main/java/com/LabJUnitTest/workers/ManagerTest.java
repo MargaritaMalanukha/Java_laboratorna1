@@ -13,7 +13,7 @@ public class ManagerTest {
     }
 
     @Test
-    public void testGetOpinion() {
+    public void GetOpinion_WithCustomersOpinions_ShouldGetOpinionFromCustomerToReviewList() {
         Customer customer1 = new Customer("Alex", "Samoylov");
         Customer customer2 = new Customer("Kateryna", "Ivanova");
         Customer customer3 = new Customer("John", "Smith");

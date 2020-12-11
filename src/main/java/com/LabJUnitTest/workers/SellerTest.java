@@ -16,7 +16,7 @@ public class SellerTest {
     }
 
     @Test
-    public void testPayment() {
+    public void Pay_WithMoneyGetFromCustomer_ShouldSaveMoneyAndSendASuccessMessage() {
         Purchase purchase = new Purchase();
         purchase.add(Meat.TURKEY_MEAT);
         purchase.add(MilkProduct.CHEESE);

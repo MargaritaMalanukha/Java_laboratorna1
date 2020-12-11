@@ -16,7 +16,7 @@ public class FishTest {
     }
 
     @Test
-    public void testArrayListElementToString() {
+    public void ToString_WithPikeAsOutputField_ShouldReturnNameAndPriceOfProductInString() {
         String result = listOfFish.get(3).toString();
 
         Assert.assertEquals("Название продукта: Щука, цена: 97.3", result);

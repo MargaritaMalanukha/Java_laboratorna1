@@ -16,7 +16,7 @@ public class SweetTest {
     }
 
     @Test
-    public void testArrayListElementToString() {
+    public void ToString_WithCakeAsOutputField_ShouldReturnNameAndPriceOfProductInString() {
         String result = listOfSweet.get(2).toString();
 
         Assert.assertEquals("Название продукта: Торт, цена: 120.99", result);

@@ -9,9 +9,8 @@ public class RackSetTest {
     private final RackSet rackSet = new RackSet();
 
     @Test
-    public void testGenerateRacks() {
+    public void GenerateRacks_WithEmptyRacks_ShouldReturnGeneratedRacks() {
         rackSet.generateRacks();
-
         Assert.assertEquals(6, rackSet.getRacks().size());
     }
 

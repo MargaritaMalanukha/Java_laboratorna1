@@ -12,9 +12,8 @@ public class CleanerTest {
     }
 
     @Test
-    public void testPrepareRacks() {
+    public void PrepareRacks_WithEmptyRacks_ShouldReturnFilledRacks() {
         cleaner.prepareRacks();
-
         Assert.assertEquals(6, cleaner.getRackSet().getRacks().size());
     }
 

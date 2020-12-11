@@ -9,10 +9,10 @@ public class Customer {
 
     private final int customerId;
 
-    private String name;
-    private String surname;
+    private final String name;
+    private final String surname;
 
-    private Card card;
+    private final Card card;
 
     public final LinkedList<Purchase> bucket;
 
