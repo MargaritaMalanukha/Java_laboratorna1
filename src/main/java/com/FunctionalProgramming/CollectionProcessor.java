@@ -8,20 +8,22 @@ import java.util.stream.Collectors;
 
 public class CollectionProcessor {
 
-    public static double findMilkFullPrice(ArrayList<Purchaseable> purchase){ //todo
-
+    public static double findFullPriceByProductType(ArrayList<Purchaseable> purchase, String classname){
         return purchase
                 .stream()
-                .filter(c -> c instanceof MilkProduct)
-                .mapToDouble(Purchaseable::getPrice).sum();
+                .filter(c -> c.getClass().getName().equals(classname))
+                .mapToDouble(Purchaseable::getPrice)
+                .sum();
     }
 
-    public static Optional<Purchaseable> findTheMostExpensiveProduct(ArrayList<Purchaseable> purchase) { //todo
-        Purchaseable product = Collections.max(purchase, Purchaseable::compare);
-        return Optional.ofNullable(product);
+    public static Purchaseable findTheMostExpensiveProduct(ArrayList<Purchaseable> purchase) {
+        return purchase
+                .stream()
+                .max(Comparator.comparing(Purchaseable::getPrice))
+                .orElseThrow(NoSuchElementException::new);
     }
 
-    public static double averageProductPrice(ArrayList<Purchaseable> purchase) {
+    public static double findAverageProductPrice(ArrayList<Purchaseable> purchase) {
         return purchase
                 .stream()
                 .mapToDouble(Purchaseable::getPrice)
@@ -29,42 +31,18 @@ public class CollectionProcessor {
                 .orElse(0);
     }
 
- /*  public static Map<Boolean, ArrayList<Purchaseable>> filter(ArrayList<Purchaseable> purchase, String classname) {//todo
+    public static Map<Boolean, List<Purchaseable>> partitionByClassname(ArrayList<Purchaseable> purchase, String classname) {
         return purchase
                 .stream()
-                .collect(Collectors.partitioningBy(c -> {
-                    if (c instanceof )
-                }));
-
-    }*/
-
-    public static ArrayList<Purchaseable> generateFilteredList(ArrayList<Purchaseable> purchase, boolean putFilteredProducts, String classname) {
-        return purchase
-                .stream()
-                .filter(c -> {
-                    try {
-                        if (putFilteredProducts) return Class.forName(classname).isInstance(c);
-                        return !Class.forName(classname).isInstance(c);
-                    } catch (ClassNotFoundException e) {
-                        return false;
-                    }
-                }).collect(Collectors.toCollection(ArrayList::new));
+                .collect(Collectors.partitioningBy(c -> c.getClass().getName().equals(classname)));
     }
 
-  /*  public static double findMaxBonus(ArrayList<Worker> workers, String classname) { //todo
+    public static double findMaxBonus(ArrayList<Worker> workers, String classname) {
         return workers
                 .stream()
-                .filter(CollectionProcessor::exceptionHandler)
+                .filter(c -> c.getClass().getName().equals(classname))
                 .mapToDouble(Worker::getBonus)
                 .max()
                 .orElse(0);
-    }*/
-
- /*   private static boolean exceptionHandler(Worker worker) {
-        try {
-            return Class.forName(classname).isInstance(worker);
-        } catch (MyException e) {
-            return false;
-        }
-    }*/
+    }
 }

@@ -20,6 +20,10 @@ public class Seller extends Worker {
         this.bonus = bonus;
     }
 
+    public Seller(double bonus) {
+        this.bonus = bonus;
+    }
+
     public double getMoney() {
         return money;
     }

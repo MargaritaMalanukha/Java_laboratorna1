@@ -20,6 +20,10 @@ public class Cleaner extends Worker {
         this.bonus = bonus;
     }
 
+    public Cleaner(double bonus) {
+        this.bonus = bonus;
+    }
+
     public void prepareRacks() {
         rackSet = new RackSet();
         rackSet.generateRacks();

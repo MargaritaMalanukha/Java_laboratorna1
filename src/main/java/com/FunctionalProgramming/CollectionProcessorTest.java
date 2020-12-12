@@ -9,131 +9,95 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class CollectionProcessorTest {
 
-    ArrayList<Purchaseable> arrayList = new ArrayList<>();
+    ArrayList<Purchaseable> purchase = new ArrayList<>();
     ArrayList<Worker> workers = new ArrayList<>();
 
-    @Test
-    public void findMilkFullPrice_WithEmptyList_ShouldReturnZero() {
-        Assert.assertEquals(0, CollectionProcessor.findMilkFullPrice(arrayList), 0.001);
+    @Before
+    public void initPurchase() {
+        purchase.add(MilkProduct.CHEESE);
+        purchase.add(MilkProduct.MILK);
+        purchase.add(MilkProduct.BUTTER);
+        purchase.add(Fruit.ORANGE);
+        purchase.add(Meat.HORSEMEAT);
+        purchase.add(Sweet.CAKE);
+
+        workers.add(new Seller(500));
+        workers.add(new Manager(700));
+        workers.add(new Manager(300));
+        workers.add(new Seller(400));
+        workers.add(new Cleaner(100));
+        workers.add(new Cleaner(300));
     }
 
     @Test
-    public void findMilkFullPrice_WithNoMilkInList_ShouldReturnZero() {
-        arrayList.add(Fish.PIKE);
-        arrayList.add(Meat.HORSEMEAT);
-        arrayList.add(Vegetable.CARROT);
-        arrayList.add(Vegetable.ONION);
-        arrayList.add(Fish.ANCHOVY);
-
-        Assert.assertEquals(0, CollectionProcessor.findMilkFullPrice(arrayList), 0.001);
-
+    public void FindFullPriceByProductType_WithNonEmptyListAndClassnameToFilter_ShouldReturnFullPriceOfFilteredItems() {
+        Assert.assertEquals(115.5, CollectionProcessor.findFullPriceByProductType(purchase, "com.Lab.products.MilkProduct"), 0.001);
     }
 
     @Test
-    public void findMilkFullPrice_WithMilkInList_ShouldReturnMilkFullPrice() {
-        arrayList.add(MilkProduct.CHEESE);
-        arrayList.add(MilkProduct.BUTTER);
-        arrayList.add(MilkProduct.CHEESE);
-        arrayList.add(Vegetable.ONION);
-
-        Assert.assertEquals(140.5, CollectionProcessor.findMilkFullPrice(arrayList), 0.001);
+    public void FindFullPriceByProductType_WithEmptyListAndClassnameToFilter_ShouldReturnZero() {
+        Assert.assertEquals(0, CollectionProcessor.findFullPriceByProductType(new ArrayList<>(), "com.Lab.products.MilkProduct"), 0);
     }
 
     @Test
-    public void findTheMostExpensiveProduct_WithEmptyList_ShouldReturnEmptyList() {
-        Optional<Purchaseable> optional = CollectionProcessor.findTheMostExpensiveProduct(arrayList);
-        Assert.assertFalse(optional.isPresent());
+    public void FindFullPriceByProductType_WithNonEmptyListAndInvalidClassnameToFilter_ShouldReturnZero() {
+        Assert.assertEquals(0, CollectionProcessor.findFullPriceByProductType(purchase, "wrongClassname"), 0);
     }
 
     @Test
-    public void findTheMostExpensiveProduct_WithProductList_ShouldReturnProduct() {
-        arrayList.add(Vegetable.ONION);
-        arrayList.add(Meat.PORK);
-        arrayList.add(Fruit.ORANGE);
+    public void FindTheMostExpensiveProduct_WithNonEmptyList_ShouldReturnProductWithMaxPrice() {
+        Assert.assertEquals(340, CollectionProcessor.findTheMostExpensiveProduct(purchase).getPrice(), 0);
+    }
 
-        Assert.assertEquals(305.5, CollectionProcessor.findTheMostExpensiveProduct(arrayList).get().getPrice(), 0.001);
+    @Test (expected = NoSuchElementException.class)
+    public void FindTheMostExpensiveProduct_WithEmptyList_ShouldReturnNoSuchElementException() {
+        CollectionProcessor.findTheMostExpensiveProduct(new ArrayList<>());
     }
 
     @Test
-    public void averageProductPrice_WithEmptyList_ShouldReturnZero() {
-        Assert.assertEquals(0, CollectionProcessor.averageProductPrice(arrayList), 0.001);
+    public void AverageProductPrice_WithNonEmptyList_ShouldReturnAveragePriceForPurchase() {
+        Assert.assertEquals(103.165, CollectionProcessor.findAverageProductPrice(purchase), 0.001);
     }
 
     @Test
-    public void averageProductPrice_WithProductList_ShouldReturnAverage() {
-        arrayList.add(Meat.HORSEMEAT);
-        arrayList.add(MilkProduct.KEFIR);
-        arrayList.add(Vegetable.ONION);
-
-        Assert.assertEquals(122.76667, CollectionProcessor.averageProductPrice(arrayList), 0.001);
-    }
-
- /*   @Test
-    public void filter_WrongClassnameEntered_ShouldReturnEmptyList() {
-        arrayList.add(Meat.HORSEMEAT);
-        arrayList.add(Meat.PORK);
-
-        ArrayList<Purchaseable> filteredListFromMap = CollectionProcessor.filter(arrayList, "com.Lab.products.wrongclassname").get(true);
-        ArrayList<Purchaseable> nonfilteredListFromMap = CollectionProcessor.filter(arrayList, "com.Lab.products.wrongclassname").get(false);
-
-        Assert.assertTrue(filteredListFromMap.isEmpty());
-        Assert.assertTrue(nonfilteredListFromMap.isEmpty());
-    }*/
-
- /*   @Test
-    public void filter_Meat_ShouldReturnFilteredProductsAndNonFilteredProductsSeparately() {
-        arrayList.add(Meat.PORK);
-        arrayList.add(Meat.TURKEY_MEAT);
-        arrayList.add(Meat.CHICKEN);
-        arrayList.add(Meat.HORSEMEAT);
-        arrayList.add(Vegetable.PEPPER);
-        arrayList.add(Fruit.ORANGE);
-        arrayList.add(MilkProduct.KEFIR);
-
-        String classname = "com.Lab.products.Meat";
-
-        ArrayList<Purchaseable> filteredListFromMap = CollectionProcessor.filter(arrayList, classname).get(true);
-        ArrayList<Purchaseable> nonfilteredListFromMap = CollectionProcessor.filter(arrayList, classname).get(false);
-
-        Assert.assertEquals(Meat.PORK, filteredListFromMap.get(0));
-        Assert.assertEquals(4, filteredListFromMap.size());
-        Assert.assertEquals(MilkProduct.KEFIR, nonfilteredListFromMap.get(2));
-        Assert.assertEquals(3, nonfilteredListFromMap.size());
-    } */
-
-  /*  @Test
-    public void findMaxBonus_WorkerListIsEmpty_ReturnZero() {
-        Assert.assertEquals(0, CollectionProcessor.findMaxBonus(workers, "com.Lab.products.Cleaner"), 0.001);
+    public void AverageProductPrice_WithEmptyList_ShouldReturnZero() {
+        Assert.assertEquals(0, CollectionProcessor.findAverageProductPrice(new ArrayList<>()), 0.001);
     }
 
     @Test
-    public void findMaxBonus_WrongClassName_ReturnZero() {
-        initWorker();
-        Assert.assertEquals(0, CollectionProcessor.findMaxBonus(workers, "com.Lab.products.wrongclassname"), 0.001);
+    public void PartitionByClassname_WithNonEmptyListAndValidClassname_ShouldReturnPartitionedMap() {
+        Assert.assertEquals(3, CollectionProcessor.partitionByClassname(purchase, "com.Lab.products.MilkProduct").get(true).size());
+        Assert.assertEquals(MilkProduct.BUTTER, CollectionProcessor.partitionByClassname(purchase, "com.Lab.products.MilkProduct").get(true).get(2));
     }
 
     @Test
-    public void findMaxBonus_WithWorkerList_ReturnMaxBonus() {
-        initWorker();
-        Assert.assertEquals(110, CollectionProcessor.findMaxBonus(workers, "com.Lab.workers.Cleaner"), 0.001);
-    }*/
-
-    private void initWorker() {
-        workers.add(new Cleaner("Ivan", "Ivanov", 100));
-        workers.add(new Cleaner("Boris", "Borisov", 110));
-        workers.add(new Cleaner("Alex", "Petrov", 70));
-        workers.add(new Cleaner("Petr", "Sidorov", 0));
-        workers.add(new Manager("Vladislav", "Petrenko", 120));
-        workers.add(new Seller("Vladislav", "Petrenko", 30));
+    public void PartitionByClassname_WithEmptyListAndValidClassname_ShouldReturnMapWithEmptyValues() {
+        Assert.assertEquals(0, CollectionProcessor.partitionByClassname(new ArrayList<>(), "com.Lab.products.MilkProduct").get(true).size());
     }
 
+    @Test
+    public void PartitionByClassname_WithNonEmptyListAndInvalidClassname_ShouldReturnMapWithEmptyValuesOnKeyTrueAndNonEmptyOnFalse() {
+        Assert.assertEquals(0, CollectionProcessor.partitionByClassname(purchase, "wrongPath").get(true).size());
+        Assert.assertEquals(6, CollectionProcessor.partitionByClassname(purchase, "wrongPath").get(false).size());
+    }
+
+    @Test
+    public void FindMaxBonus_WithNonEmptyListAndValidClassname_ShouldReturnMaxBonus() {
+        Assert.assertEquals(700, CollectionProcessor.findMaxBonus(workers, "com.Lab.workers.Manager"), 0.001);
+    }
+
+    @Test
+    public void FindMaxBonus_WithEmptyListAndValidClassname_ShouldReturnZero() {
+        Assert.assertEquals(0, CollectionProcessor.findMaxBonus(new ArrayList<>(), "com.Lab.workers.Manager"), 0.001);
+    }
+
+    @Test
+    public void FindMaxBonus_WithNonEmptyListAndInvalidClassname_ShouldReturnZero() {
+        Assert.assertEquals(0, CollectionProcessor.findMaxBonus(workers, "wrongPath"), 0.001);
+    }
 
 }

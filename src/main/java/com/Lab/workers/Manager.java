@@ -22,6 +22,10 @@ public class Manager extends Worker {
         this.bonus = bonus;
     }
 
+    public Manager(double bonus) {
+        this.bonus = bonus;
+    }
+
     public void getOpinion(Customer customer, String opinion) {
         StringBuilder builder = new StringBuilder();
         builder.append("Customer " + customer.getName() + " " + customer.getSurname());
