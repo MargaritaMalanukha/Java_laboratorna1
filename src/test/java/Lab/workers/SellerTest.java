@@ -1,4 +1,4 @@
-package com.LabJUnitTest.workers;
+package Lab.workers;
 
 import com.Lab.products.Fruit;
 import com.Lab.products.Meat;

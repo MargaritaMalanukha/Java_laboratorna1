@@ -1,4 +1,4 @@
-package com.LabJUnitTest.racks;
+package Lab.racks;
 
 import com.Lab.racks.RackSet;
 import org.junit.Assert;

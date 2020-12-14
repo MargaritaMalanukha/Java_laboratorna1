@@ -1,4 +1,4 @@
-package com.LabJUnitTest.purchase;
+package Lab.purchase;
 
 import com.Lab.products.*;
 import com.Lab.purchase.Purchase;

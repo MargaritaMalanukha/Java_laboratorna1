@@ -1,4 +1,4 @@
-package com.LabJUnitTest.workers;
+package Lab.workers;
 
 import com.Lab.workers.Cleaner;
 import org.junit.Assert;

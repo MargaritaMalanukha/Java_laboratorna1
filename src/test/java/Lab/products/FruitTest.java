@@ -1,4 +1,4 @@
-package com.LabJUnitTest.products;
+package Lab.products;
 
 import com.Lab.products.Fruit;
 import com.Lab.products.Purchaseable;

@@ -1,4 +1,4 @@
-package com.LabJUnitTest.continghouse;
+package Lab.countinghouse;
 
 import com.Lab.countinghouse.CountingHouse;
 import com.Lab.workers.Cleaner;

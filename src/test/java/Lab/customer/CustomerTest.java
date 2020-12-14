@@ -1,4 +1,4 @@
-package com.LabJUnitTest.customer;
+package Lab.customer;
 
 import com.Lab.customer.Customer;
 import org.junit.Assert;

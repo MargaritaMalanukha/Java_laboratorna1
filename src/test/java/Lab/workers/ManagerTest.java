@@ -1,4 +1,4 @@
-package com.LabJUnitTest.workers;
+package Lab.workers;
 
 import com.Lab.customer.Customer;
 import com.Lab.workers.Manager;
