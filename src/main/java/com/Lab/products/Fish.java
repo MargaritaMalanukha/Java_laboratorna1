@@ -1,11 +1,11 @@
 package com.Lab.products;
 
 public enum Fish implements Purchaseable {
-    SALMON("Лосось", 150.0),
-    CARP("Карась", 90.0),
-    PERCH("Окунь", 95.9),
-    PIKE("Щука", 97.3),
-    ANCHOVY("Анчоус", 84.7);
+    SALMON("Salmon", 150.0),
+    CARP("Carp", 90.0),
+    PERCH("Perch", 95.9),
+    PIKE("Pike", 97.3),
+    ANCHOVY("Anchovy", 84.7);
 
     private final String title;
     private final double price;
@@ -17,8 +17,8 @@ public enum Fish implements Purchaseable {
 
     @Override
     public String toString() {
-        return "Название продукта: " + title +
-                ", цена: " + price;
+        return "The title of product is: " + title +
+                ", price: " + price;
     }
 
     @Override

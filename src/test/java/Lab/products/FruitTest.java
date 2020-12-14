@@ -19,7 +19,7 @@ public class FruitTest {
     public void ToString_WithOrangeAsOutputField_ShouldReturnNameAndPriceOfProductInString() {
         String result = listOfFruit.get(2).toString();
 
-        Assert.assertEquals("Название продукта: Апельсин, цена: 42.5", result);
+        Assert.assertEquals("The title of product is: Orange, price: 42.5", result);
     }
 
 }

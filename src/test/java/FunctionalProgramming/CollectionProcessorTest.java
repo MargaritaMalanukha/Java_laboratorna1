@@ -1,5 +1,6 @@
-package com.FunctionalProgramming;
+package FunctionalProgramming;
 
+import com.FunctionalProgramming.CollectionProcessor;
 import com.Lab.products.*;
 import com.Lab.workers.Cleaner;
 import com.Lab.workers.Manager;

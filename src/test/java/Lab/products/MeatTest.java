@@ -19,7 +19,7 @@ public class MeatTest {
     public void ToString_WithChickenAsOutputField_ShouldReturnNameAndPriceOfProductInString() {
         String result = listOfMeat.get(0).toString();
 
-        Assert.assertEquals("Название продукта: Курица, цена: 90.0", result);
+        Assert.assertEquals("The title of product is: Chicken, price: 90.0", result);
     }
 
 }

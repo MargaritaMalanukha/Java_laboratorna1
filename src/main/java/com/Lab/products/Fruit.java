@@ -1,12 +1,12 @@
 package com.Lab.products;
 
 public enum Fruit implements Purchaseable {
-    APPLE("Яблоко", 23.2),
-    PEAR("Груша", 20.7),
-    ORANGE("Апельсин", 42.5),
-    GRAPE("Виноград", 20.0),
-    MELON("Дыня", 11.45),
-    PINEAPPLE("Ананас", 50.62);
+    APPLE("Apple", 23.2),
+    PEAR("Pear", 20.7),
+    ORANGE("Orange", 42.5),
+    GRAPE("Grape", 20.0),
+    MELON("Melon", 11.45),
+    PINEAPPLE("Pineapple", 50.62);
 
     private final String title;
     private final double price;
@@ -18,8 +18,8 @@ public enum Fruit implements Purchaseable {
 
     @Override
     public String toString() {
-        return "Название продукта: " + title +
-                ", цена: " + price;
+        return "The title of product is: " + title +
+                ", price: " + price;
     }
 
     public String getTitle(){

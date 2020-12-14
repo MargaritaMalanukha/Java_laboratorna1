@@ -19,7 +19,7 @@ public class FishTest {
     public void ToString_WithPikeAsOutputField_ShouldReturnNameAndPriceOfProductInString() {
         String result = listOfFish.get(3).toString();
 
-        Assert.assertEquals("Название продукта: Щука, цена: 97.3", result);
+        Assert.assertEquals("The title of product is: Pike, price: 97.3", result);
     }
 
 }

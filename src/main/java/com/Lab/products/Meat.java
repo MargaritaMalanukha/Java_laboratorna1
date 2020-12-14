@@ -1,11 +1,11 @@
 package com.Lab.products;
 
 public enum Meat implements Purchaseable {
-    CHICKEN("Курица", 90.0),
-    BEEF("Говядина", 210.0),
-    PORK("Свинина", 305.5),
-    TURKEY_MEAT("Индюшатина", 95.0),
-    HORSEMEAT("Конина", 340.0);
+    CHICKEN("Chicken", 90.0),
+    BEEF("Beef", 210.0),
+    PORK("Pork", 305.5),
+    TURKEY_MEAT("Turkey Meat", 95.0),
+    HORSEMEAT("Horse Meat", 340.0);
 
     private final String title;
     private final double price;
@@ -17,8 +17,8 @@ public enum Meat implements Purchaseable {
 
     @Override
     public String toString() {
-        return "Название продукта: " + title +
-                ", цена: " + price;
+        return "The title of product is: " + title +
+                ", price: " + price;
     }
 
     public String getTitle(){

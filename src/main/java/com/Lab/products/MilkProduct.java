@@ -1,11 +1,11 @@
 package com.Lab.products;
 
 public enum MilkProduct implements Purchaseable {
-    MILK("Молоко", 25),
-    KEFIR("Кефир", 23.3),
-    YOGURT("Йогурт", 30.25),
-    CHEESE("Сыр", 50.0),
-    BUTTER("Масло", 40.5);
+    MILK("Milk", 25),
+    KEFIR("Kefir", 23.3),
+    YOGURT("Yogurt", 30.25),
+    CHEESE("Cheese", 50.0),
+    BUTTER("Butter", 40.5);
 
     private final String title;
     private final double price;
@@ -17,8 +17,8 @@ public enum MilkProduct implements Purchaseable {
 
     @Override
     public String toString() {
-        return "Название продукта: " + title +
-                ", цена: " + price;
+        return "The title of product is: " + title +
+                ", price: " + price;
     }
 
     public String getTitle(){

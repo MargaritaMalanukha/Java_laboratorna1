@@ -1,12 +1,12 @@
 package com.Lab.products;
 
 public enum Sweet implements Purchaseable {
-    CANDIES("Конфеты", 60.3),
-    COOKIE("Печенье", 70.2),
-    CAKE("Торт", 120.99),
-    DONUT("Пончик", 35.0),
-    ICE_CREAM("Мороженое", 20.0),
-    CHOCOLATE("Шоколад", 25.0);
+    CANDIES("Candies", 60.3),
+    COOKIE("Cookie", 70.2),
+    CAKE("Cake", 120.99),
+    DONUT("Donut", 35.0),
+    ICE_CREAM("IceCream", 20.0),
+    CHOCOLATE("Chocolate", 25.0);
 
     private final String title;
     private final double price;
@@ -18,8 +18,8 @@ public enum Sweet implements Purchaseable {
 
     @Override
     public String toString() {
-        return "Название продукта: " + title +
-                ", цена: " + price;
+        return "The title of product is: " + title +
+                ", price: " + price;
     }
 
     public String getTitle(){
