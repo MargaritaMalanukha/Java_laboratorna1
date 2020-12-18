@@ -4,6 +4,7 @@ import com.Lab.products.*;
 import com.Lab.workers.Worker;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class CollectionProcessor {
@@ -31,10 +32,10 @@ public class CollectionProcessor {
                 .orElse(0);
     }
 
-    public static Map<Boolean, List<Purchaseable>> partitionByClassname(ArrayList<Purchaseable> purchase, String classname) {
+    public static Map<Boolean, List<Worker>> partitionByCondition(ArrayList<Worker> purchase, Predicate<Worker> condition) {
         return purchase
                 .stream()
-                .collect(Collectors.partitioningBy(c -> c.getClass().getName().equals(classname)));
+                .collect(Collectors.partitioningBy(condition));
     }
 
     public static double findMaxBonus(ArrayList<Worker> workers, String classname) {

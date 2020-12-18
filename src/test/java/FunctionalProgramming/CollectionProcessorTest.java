@@ -70,20 +70,14 @@ public class CollectionProcessorTest {
     }
 
     @Test
-    public void PartitionByClassname_WithNonEmptyListAndValidClassname_ShouldReturnPartitionedMap() {
-        Assert.assertEquals(3, CollectionProcessor.partitionByClassname(purchase, "com.Lab.products.MilkProduct").get(true).size());
-        Assert.assertEquals(MilkProduct.BUTTER, CollectionProcessor.partitionByClassname(purchase, "com.Lab.products.MilkProduct").get(true).get(2));
+    public void PartitionByCondition_WithNonEmptyListAndValidCondition_ShouldReturnPartitionedMap() {
+        Assert.assertEquals(2, CollectionProcessor.partitionByCondition(workers, worker -> worker instanceof Manager).get(true).size());
+        Assert.assertEquals(100, CollectionProcessor.partitionByCondition(workers, worker -> worker instanceof Manager).get(false).get(2).getBonus(), 0.001);
     }
 
     @Test
-    public void PartitionByClassname_WithEmptyListAndValidClassname_ShouldReturnMapWithEmptyValues() {
-        Assert.assertEquals(0, CollectionProcessor.partitionByClassname(new ArrayList<>(), "com.Lab.products.MilkProduct").get(true).size());
-    }
-
-    @Test
-    public void PartitionByClassname_WithNonEmptyListAndInvalidClassname_ShouldReturnMapWithEmptyValuesOnKeyTrueAndNonEmptyOnFalse() {
-        Assert.assertEquals(0, CollectionProcessor.partitionByClassname(purchase, "wrongPath").get(true).size());
-        Assert.assertEquals(6, CollectionProcessor.partitionByClassname(purchase, "wrongPath").get(false).size());
+    public void PartitionByCondition_WithEmptyListAndValidCondition_ShouldReturnMapWithEmptyValues() {
+        Assert.assertEquals(0, CollectionProcessor.partitionByCondition(new ArrayList<>(), worker -> worker instanceof Seller).get(true).size());
     }
 
     @Test
