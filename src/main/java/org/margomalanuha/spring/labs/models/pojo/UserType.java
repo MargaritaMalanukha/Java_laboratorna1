@@ -1,12 +1,12 @@
-package org.margomalanuha.spring.labs.repository.account.pojo;
+package org.margomalanuha.spring.labs.models.pojo;
 
 import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class Right {
+@AllArgsConstructor
+public class UserType {
 
     private int id;
     private String title;

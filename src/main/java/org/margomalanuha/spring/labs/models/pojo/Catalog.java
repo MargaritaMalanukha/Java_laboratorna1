@@ -1,4 +1,4 @@
-package org.margomalanuha.spring.labs.repository.products.pojo;
+package org.margomalanuha.spring.labs.models.pojo;
 
 import lombok.*;
 

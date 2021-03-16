@@ -1,11 +1,11 @@
-package org.margomalanuha.spring.labs.repository.purchase.dao;
+package org.margomalanuha.spring.labs.repository;
 
-import org.margomalanuha.spring.labs.repository.purchase.pojo.Purchase;
-import org.margomalanuha.spring.labs.repository.tools.Dao;
+import org.margomalanuha.spring.labs.models.pojo.Purchase;
+import org.margomalanuha.spring.labs.repository.tools.Repository;
 
 import java.util.List;
 
-public class PurchaseDao extends Dao {
+public class PurchaseRepository extends Repository {
 
     public int create(Purchase purchase) {
         String sql = "insert into purchases(user_id, price, time) values(" + purchase.getUserId()

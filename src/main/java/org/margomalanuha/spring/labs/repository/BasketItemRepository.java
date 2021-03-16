@@ -1,11 +1,11 @@
-package org.margomalanuha.spring.labs.repository.purchase.dao;
+package org.margomalanuha.spring.labs.repository;
 
-import org.margomalanuha.spring.labs.repository.purchase.pojo.BasketItem;
-import org.margomalanuha.spring.labs.repository.tools.Dao;
+import org.margomalanuha.spring.labs.models.pojo.BasketItem;
+import org.margomalanuha.spring.labs.repository.tools.Repository;
 
 import java.util.List;
 
-public class BasketItemDao extends Dao {
+public class BasketItemRepository extends Repository {
 
     public int create(BasketItem basketItem) {
         String sql = "insert into basket_items(product_id, user_id) values(" + basketItem.getProductId()

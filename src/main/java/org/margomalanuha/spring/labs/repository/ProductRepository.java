@@ -1,11 +1,11 @@
-package org.margomalanuha.spring.labs.repository.products.dao;
+package org.margomalanuha.spring.labs.repository;
 
-import org.margomalanuha.spring.labs.repository.products.pojo.Product;
-import org.margomalanuha.spring.labs.repository.tools.Dao;
+import org.margomalanuha.spring.labs.models.pojo.Product;
+import org.margomalanuha.spring.labs.repository.tools.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import java.util.List;
 
-public class ProductDao extends Dao {
+public class ProductRepository extends Repository {
 
     public int create(Product product) {
         String sql = "insert into products(title, price, calalog_id)" +

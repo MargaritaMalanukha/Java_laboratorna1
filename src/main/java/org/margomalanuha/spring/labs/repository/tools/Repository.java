@@ -5,17 +5,17 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
-public class Dao {
+public class Repository {
 
     protected DataSource dataSource;
     protected JdbcTemplate jdbcTemplate;
 
-    public Dao(DataSource dataSource) {
+    public Repository(DataSource dataSource) {
         this.dataSource = dataSource;
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public Dao() {
+    public Repository() {
         this.dataSource = new DriverManagerDataSource(Connector.URL, Connector.USERNAME, Connector.PASSWORD);
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }

@@ -1,4 +1,4 @@
-package org.margomalanuha.spring.labs.repository.purchase.pojo;
+package org.margomalanuha.spring.labs.models.pojo;
 
 import lombok.*;
 
@@ -11,5 +11,10 @@ public class BasketItem {
     private int id;
     private int productId;
     private int userId;
+
+    public BasketItem(int productId, int userId) {
+        this.productId = productId;
+        this.userId = userId;
+    }
 
 }

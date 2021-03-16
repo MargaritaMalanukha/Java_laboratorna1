@@ -1,10 +1,10 @@
-package org.margomalanuha.spring.labs.repository.products.dao;
+package org.margomalanuha.spring.labs.repository;
 
-import org.margomalanuha.spring.labs.repository.products.pojo.Catalog;
-import org.margomalanuha.spring.labs.repository.tools.Dao;
+import org.margomalanuha.spring.labs.models.pojo.Catalog;
+import org.margomalanuha.spring.labs.repository.tools.Repository;
 import java.util.List;
 
-public class CatalogDao extends Dao {
+public class CatalogRepository extends Repository {
 
     public int create(Catalog catalog) {
         String sql = "insert into catalogs(title) values(" + catalog.getTitle() + ");";

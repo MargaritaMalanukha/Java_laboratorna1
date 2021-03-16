@@ -1,10 +1,10 @@
-package org.margomalanuha.spring.labs.repository.account.dao;
+package org.margomalanuha.spring.labs.repository;
 
-import org.margomalanuha.spring.labs.repository.account.pojo.UserType;
-import org.margomalanuha.spring.labs.repository.tools.Dao;
+import org.margomalanuha.spring.labs.models.pojo.UserType;
+import org.margomalanuha.spring.labs.repository.tools.Repository;
 import java.util.List;
 
-public class UserTypeDao extends Dao {
+public class UserTypeRepository extends Repository {
 
     public int create(UserType userType) {
         String sql = "insert into user_types(title) values(" + userType.getTitle() + ");";
