@@ -7,22 +7,22 @@ import java.util.List;
 public class CatalogRepository extends Repository {
 
     public int create(Catalog catalog) {
-        String sql = "insert into catalogs(title) values(" + catalog.getTitle() + ");";
+        String sql = "insert into catalogs(title) values('" + catalog.getTitle() + "')";
         return jdbcTemplate.update(sql);
     }
 
     public int update(Catalog catalog) {
-        String sql = "update catalogs set title=" + catalog.getTitle() + " where id=" + catalog.getId() + ";";
+        String sql = "update catalogs set title='" + catalog.getTitle() + "' where id=" + catalog.getId();
         return jdbcTemplate.update(sql);
     }
 
     public int delete(int id) {
-        String sql = "delete from catalogs where id=" + id + ";";
+        String sql = "delete from catalogs where id=" + id;
         return jdbcTemplate.update(sql);
     }
 
     public Catalog getById(int id) {
-        String sql = "select * from catalogs where id=" + id + ";";
+        String sql = "select * from catalogs where id=" + id;
         return jdbcTemplate.queryForObject(sql, Catalog.class);
     }
 

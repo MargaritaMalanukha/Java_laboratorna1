@@ -20,12 +20,12 @@ public class PurchaseRepository extends Repository {
     }
 
     public int delete(int id) {
-        String sql = "delete from purchases where id=" + id + ";";
+        String sql = "delete from purchases where id=" + id;
         return jdbcTemplate.update(sql);
     }
 
     public Purchase getById(int id) {
-        String sql = "select * from purchases where id=" + id + ";";
+        String sql = "select * from purchases where id=" + id;
         return jdbcTemplate.queryForObject(sql, Purchase.class);
     }
 

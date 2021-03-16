@@ -9,23 +9,23 @@ public class BasketItemRepository extends Repository {
 
     public int create(BasketItem basketItem) {
         String sql = "insert into basket_items(product_id, user_id) values(" + basketItem.getProductId()
-                + "," + basketItem.getUserId() + ");";
+                + "," + basketItem.getUserId() + ")";
         return jdbcTemplate.update(sql);
     }
 
     public int update(BasketItem basketItem) {
         String sql = "update basket_items set product_id=" + basketItem.getProductId() + ", user_id=" + basketItem.getUserId()
-                + " where id=" + basketItem.getId() + ";";
+                + " where id=" + basketItem.getId();
         return jdbcTemplate.update(sql);
     }
 
     public int delete(int id) {
-        String sql = "delete from basket_items where id=" + id + ";";
+        String sql = "delete from basket_items where id=" + id;
         return jdbcTemplate.update(sql);
     }
 
     public BasketItem getById(int id) {
-        String sql = "select * from basket_items where id=" + id + ";";
+        String sql = "select * from basket_items where id=" + id;
         return jdbcTemplate.queryForObject(sql, BasketItem.class);
     }
 

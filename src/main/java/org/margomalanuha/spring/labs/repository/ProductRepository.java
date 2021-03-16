@@ -8,26 +8,26 @@ import java.util.List;
 public class ProductRepository extends Repository {
 
     public int create(Product product) {
-        String sql = "insert into products(title, price, calalog_id)" +
-                "values(" + product.getTitle() + "," +
-                product.getPrice() + "," + product.getCatalogId() + ");";
+        String sql = "insert into products(title, price, catalog_id)" +
+                " values('" + product.getTitle() + "'," +
+                product.getPrice() + "," + product.getCatalogId() + ")";
 
         return jdbcTemplate.update(sql);
     }
 
     public int update(Product product) {
-        String sql = "update products set title=" + product.getTitle() +
-                ", price=" + product.getPrice() + ", catalog_id=" + product.getCatalogId() + " where id=" + product.getId() + ";";
+        String sql = "update products set title='" + product.getTitle() +
+                "', price=" + product.getPrice() + ", catalog_id=" + product.getCatalogId() + " where id=" + product.getId();
         return jdbcTemplate.update(sql);
     }
 
     public int delete(int id) {
-        String sql = "delete from products where id=" + id + ";";
+        String sql = "delete from products where id=" + id;
         return jdbcTemplate.update(sql);
     }
 
     public Product getById(int id) {
-        String sql = "select * from products where id=" + id + ";";
+        String sql = "select * from products where id=" + id;
         return jdbcTemplate.queryForObject(sql, Product.class);
     }
 

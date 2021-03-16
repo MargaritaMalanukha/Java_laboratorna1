@@ -11,10 +11,10 @@ public class UserServiceImpl implements UserService {
         userRepository = new UserRepository();
     }
 
-
     @Override
-    public void register(String name, String surname, String email, String password) {
-        userRepository.create(new User(name, surname, email, password));
+    public User register(String name, String surname, String email, String password) {
+        int id = userRepository.create(new User(name, surname, email, password));
+        return userRepository.getById(id);
     }
 
     @Override
