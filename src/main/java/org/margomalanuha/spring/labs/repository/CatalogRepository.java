@@ -7,12 +7,13 @@ import java.util.List;
 public class CatalogRepository extends Repository {
 
     public int create(Catalog catalog) {
-        String sql = "insert into catalogs(title) values('" + catalog.getTitle() + "')";
+        String sql = "insert into catalogs(title) values('" + catalog.getTitle() + "', " + catalog.getUpperCatalogId() +")";
         return jdbcTemplate.update(sql);
     }
 
     public int update(Catalog catalog) {
-        String sql = "update catalogs set title='" + catalog.getTitle() + "' where id=" + catalog.getId();
+        String sql = "update catalogs set title='" + catalog.getTitle() + "', set catalog_id='" + catalog.getUpperCatalogId() +
+                "' where id=" + catalog.getId();
         return jdbcTemplate.update(sql);
     }
 
@@ -31,6 +32,7 @@ public class CatalogRepository extends Repository {
             Catalog e=new Catalog();
             e.setId(rs.getInt(1));
             e.setTitle(rs.getString(2));
+            e.setUpperCatalogId(rs.getInt(3));
             return e;
         });
     }

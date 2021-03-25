@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: org.margomalanuha.spring.labs.repository.ProductRepositoryTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.211 s <<< FAILURE! - in org.margomalanuha.spring.labs.repository.ProductRepositoryTest
+update_WhenDataIsCorrect_ShouldUpdateRecord(org.margomalanuha.spring.labs.repository.ProductRepositoryTest)  Time elapsed: 0.047 s  <<< FAILURE!
+java.lang.AssertionError: expected:<27.0> but was:<25.05>
+	at org.margomalanuha.spring.labs.repository.ProductRepositoryTest.update_WhenDataIsCorrect_ShouldUpdateRecord(ProductRepositoryTest.java:25)
+
+delete_WhenDataIsCorrect_ShouldDeleteRecord(org.margomalanuha.spring.labs.repository.ProductRepositoryTest)  Time elapsed: 0.061 s  <<< FAILURE!
+java.lang.AssertionError: expected:<21> but was:<22>
+	at org.margomalanuha.spring.labs.repository.ProductRepositoryTest.delete_WhenDataIsCorrect_ShouldDeleteRecord(ProductRepositoryTest.java:33)
+

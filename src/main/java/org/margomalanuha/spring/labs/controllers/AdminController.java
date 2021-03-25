@@ -8,6 +8,8 @@ import org.margomalanuha.spring.labs.service.*;
 
 import java.util.List;
 
+//todo возвращение товара (бухгалтерия?)
+
 @AllArgsConstructor
 public class AdminController {
 

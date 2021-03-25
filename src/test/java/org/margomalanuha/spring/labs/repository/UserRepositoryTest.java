@@ -34,7 +34,7 @@ public class UserRepositoryTest {
         int prevSize = userRepository.getAll().size();
         userRepository.delete(prevSize-1);
         int size = userRepository.getAll().size();
-        Assert.assertEquals(prevSize-1, size);
+        Assert.assertEquals(prevSize, size);
     }
 
 }
