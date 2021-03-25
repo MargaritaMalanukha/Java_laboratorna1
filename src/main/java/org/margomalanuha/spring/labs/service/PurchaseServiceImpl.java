@@ -59,8 +59,11 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public void addPurchaseToHistory(User user) {
         List<Product> list = getBasket(user);
+        StringBuilder cheque = new StringBuilder();
+        list.forEach(e -> cheque.append(e.toString()).append(" \n"));
+        cheque.append(user.hashCode());
         double price = list.stream().mapToDouble(Product::getPrice).sum();
-        purchaseRepository.create(new Purchase(user.getId(), price));
+        purchaseRepository.create(new Purchase(user.getId(), price, cheque.toString()));
     }
 
     @Override
@@ -68,5 +71,16 @@ public class PurchaseServiceImpl implements PurchaseService {
         return purchaseRepository.getAll().stream()
                 .filter(e -> user.getId() == e.getUserId())
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public double returnPriceByCheque(String cheque, Product product) {
+        Purchase purchase = purchaseRepository.getAll().stream()
+                .filter(e -> e.getCheque().equals(cheque))
+                .findAny().orElse(null);
+        if (purchase == null || !purchase.getCheque().contains(product.getTitle())) return 0;
+        double lastPrice = purchase.getPrice();
+        purchase.setPrice(lastPrice - product.getPrice());
+        return purchase.getPrice();
     }
 }

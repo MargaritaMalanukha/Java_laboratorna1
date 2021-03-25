@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class User {
 
     private int id;

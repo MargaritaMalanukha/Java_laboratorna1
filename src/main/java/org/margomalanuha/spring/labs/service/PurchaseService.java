@@ -14,5 +14,6 @@ public interface PurchaseService {
     void clearBasket(User user);
     void addPurchaseToHistory(User user);
     List<Purchase> getPurchaseHistory(User user);
+    double returnPriceByCheque(String cheque, Product product);
 
 }

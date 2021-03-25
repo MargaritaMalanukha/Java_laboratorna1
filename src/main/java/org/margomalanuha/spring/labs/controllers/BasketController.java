@@ -36,4 +36,6 @@ public class BasketController {
     public List<Purchase> getPurchaseHistory(User user) {
         return purchaseService.getPurchaseHistory(user);
     }
+
+    public double returnPriceByCheque(String cheque, Product product) { return purchaseService.returnPriceByCheque(cheque, product); }
 }
