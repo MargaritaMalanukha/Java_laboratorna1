@@ -15,8 +15,8 @@ public class CatalogRepository extends Repository {
     }
 
     public int update(Catalog catalog) {
-        String sql = "update catalogs set title='" + catalog.getTitle() + "', set catalog_id='" + catalog.getUpperCatalogId() +
-                "' where id=" + catalog.getId();
+        String sql = "update catalogs set title='" + catalog.getTitle() + "', catalog_id=" + catalog.getUpperCatalogId() +
+                " where id=" + catalog.getId();
         return jdbcTemplate.update(sql);
     }
 

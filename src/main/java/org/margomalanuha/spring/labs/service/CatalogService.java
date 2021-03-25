@@ -11,5 +11,6 @@ public interface CatalogService {
     void createCatalog(String title);
     void updateCatalog(Catalog catalog);
     void deleteCatalog(int id);
+    void createCatalogInCatalog(String title, Catalog catalog);
 
 }

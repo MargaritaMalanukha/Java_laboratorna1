@@ -30,5 +30,6 @@ public class CatalogController {
     public void deleteCatalog(int id) {
         catalogService.deleteCatalog(id);
     }
+    public void createCatalogInCatalog(String title, Catalog catalog) { catalogService.createCatalogInCatalog(title, catalog);}
 
 }

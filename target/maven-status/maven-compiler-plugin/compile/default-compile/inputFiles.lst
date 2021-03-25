@@ -2,6 +2,7 @@ D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\controllers\
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\repository\PurchaseRepository.java
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\repository\ProductRepository.java
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\service\PurchaseService.java
+D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\controllers\CatalogController.java
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\controllers\AdminController.java
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\models\pojo\BasketItem.java
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\repository\tools\Repository.java
@@ -10,6 +11,7 @@ D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\repository\B
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\models\pojo\Catalog.java
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\controllers\UserController.java
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\service\UserServiceImpl.java
+D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\config\Config.java
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\service\CatalogService.java
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\service\ProductsServiceImpl.java
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\repository\UserTypeRepository.java
@@ -22,6 +24,7 @@ D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\service\User
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\models\pojo\Purchase.java
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\models\pojo\User.java
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\models\pojo\UserType.java
+D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\Main.java
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\repository\CatalogRepository.java
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\service\CatalogServiceImpl.java
 D:\IdeaProjects\JavaLab\src\main\java\org\margomalanuha\spring\labs\controllers\BasketController.java

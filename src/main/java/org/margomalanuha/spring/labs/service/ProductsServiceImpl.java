@@ -1,6 +1,5 @@
 package org.margomalanuha.spring.labs.service;
 
-import lombok.AllArgsConstructor;
 import org.margomalanuha.spring.labs.models.pojo.Catalog;
 import org.margomalanuha.spring.labs.models.pojo.Product;
 import org.margomalanuha.spring.labs.repository.ProductRepository;

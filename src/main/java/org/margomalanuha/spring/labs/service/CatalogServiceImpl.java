@@ -34,7 +34,7 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public void createCatalog(String title) {
-        catalogRepository.create(new Catalog(title));
+        catalogRepository.create(new Catalog(title, 0));
     }
 
     @Override
@@ -45,5 +45,10 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     public void deleteCatalog(int id) {
         catalogRepository.delete(id);
+    }
+
+    @Override
+    public void createCatalogInCatalog(String title, Catalog catalog) {
+        catalogRepository.create(new Catalog(title, catalog.getId()));
     }
 }

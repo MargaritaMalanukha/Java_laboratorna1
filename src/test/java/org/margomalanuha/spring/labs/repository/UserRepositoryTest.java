@@ -2,13 +2,16 @@ package org.margomalanuha.spring.labs.repository;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.margomalanuha.spring.labs.config.Config;
 import org.margomalanuha.spring.labs.models.pojo.User;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
 
 public class UserRepositoryTest {
 
-    public UserRepository userRepository = new UserRepository();
+    public AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
+    public UserRepository userRepository = context.getBean("userRepository", UserRepository.class);
 
     @Test
     public void create_WhenDataIsCorrect_ShouldCreateNewRecord() {
