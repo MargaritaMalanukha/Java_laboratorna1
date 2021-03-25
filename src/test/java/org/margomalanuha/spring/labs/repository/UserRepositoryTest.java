@@ -10,8 +10,7 @@ import java.util.List;
 
 public class UserRepositoryTest {
 
-    public AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
-    public UserRepository userRepository = context.getBean("userRepository", UserRepository.class);
+    public UserRepository userRepository = new UserRepository();
 
     @Test
     public void create_WhenDataIsCorrect_ShouldCreateNewRecord() {

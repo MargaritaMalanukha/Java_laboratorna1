@@ -5,16 +5,19 @@ import org.junit.Test;
 import org.margomalanuha.spring.labs.config.Config;
 import org.margomalanuha.spring.labs.models.pojo.Catalog;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
 
 public class CatalogRepositoryTest {
 
-    public AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
-    public CatalogRepository catalogRepository = context.getBean("catalogRepository", CatalogRepository.class);
+    public CatalogRepository catalogRepository = new CatalogRepository();
 
     @Test
     public void create_WhenDataIsCorrect_ShouldCreateNewRecord() {
         int prevSize = catalogRepository.getAll().size();
-        catalogRepository.create(new Catalog("Крупы", 0));
+        catalogRepository.create(new Catalog("Candies", 5));
         int size = catalogRepository.getAll().size();
         Assert.assertEquals(prevSize+1, size);
     }
