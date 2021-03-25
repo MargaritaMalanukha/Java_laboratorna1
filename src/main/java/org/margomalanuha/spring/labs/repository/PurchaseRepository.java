@@ -8,14 +8,14 @@ import java.util.List;
 public class PurchaseRepository extends Repository {
 
     public int create(Purchase purchase) {
-        String sql = "insert into purchases(user_id, price, time) values(" + purchase.getUserId()
-                + "," + purchase.getPrice() + "," + purchase.getTime() + ");";
+        String sql = "insert into purchases(user_id, price, cheque, time) values(" + purchase.getUserId()
+                + "," + purchase.getPrice() + ","+ purchase.getCheque() + "," + purchase.getTime() + ");";
         return jdbcTemplate.update(sql);
     }
 
     public int update(Purchase purchase) {
         String sql = "update purchases set user_id=" + purchase.getUserId() + ", price=" + purchase.getPrice() +
-                ", time=" + purchase.getTime() + " where id=" + purchase.getId() + ";";
+                ", cheque=" + purchase.getCheque() + ", time=" + purchase.getTime() + " where id=" + purchase.getId() + ";";
         return jdbcTemplate.update(sql);
     }
 
@@ -35,7 +35,8 @@ public class PurchaseRepository extends Repository {
             e.setId(rs.getInt(1));
             e.setUserId(rs.getInt(2));
             e.setPrice(rs.getDouble(3));
-            e.setTime(rs.getTimestamp(4));
+            e.setCheque(rs.getString(4));
+            e.setTime(rs.getTimestamp(5));
             return e;
         });
     }

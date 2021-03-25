@@ -13,12 +13,13 @@ public class Purchase {
     private int id;
     private int userId;
     private double price;
+    private String cheque;
     private Timestamp time;
 
     public Purchase(int userId, double price) {
         this.userId = userId;
         this.price = price;
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        time = new Timestamp(System.currentTimeMillis());
     }
 
 }

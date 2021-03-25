@@ -7,7 +7,7 @@ import java.util.List;
 public class CatalogRepository extends Repository {
 
     public int create(Catalog catalog) {
-        String sql = "insert into catalogs(title) values('" + catalog.getTitle() + "', " + catalog.getUpperCatalogId() +")";
+        String sql = "insert into catalogs(title, catalog_id) values('" + catalog.getTitle() + "', " + catalog.getUpperCatalogId() +")";
         return jdbcTemplate.update(sql);
     }
 

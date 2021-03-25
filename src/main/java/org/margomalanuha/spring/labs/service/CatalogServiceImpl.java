@@ -5,6 +5,7 @@ import org.margomalanuha.spring.labs.models.pojo.Catalog;
 import org.margomalanuha.spring.labs.repository.CatalogRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class CatalogServiceImpl implements CatalogService {
@@ -16,6 +17,14 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     public List<Catalog> getAllCatalogs() {
         return catalogRepository.getAll();
+    }
+
+    @Override
+    public List<Catalog> getSubdirectoriesById(int id) {
+        return catalogRepository.getAll()
+                .stream()
+                .filter(e -> e.getUpperCatalogId() == id)
+                .collect(Collectors.toList());
     }
 
     @Override
