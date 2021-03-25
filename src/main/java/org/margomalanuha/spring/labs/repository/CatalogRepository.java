@@ -2,8 +2,11 @@ package org.margomalanuha.spring.labs.repository;
 
 import org.margomalanuha.spring.labs.models.pojo.Catalog;
 import org.margomalanuha.spring.labs.repository.tools.Repository;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@org.springframework.stereotype.Repository
 public class CatalogRepository extends Repository {
 
     public int create(Catalog catalog) {

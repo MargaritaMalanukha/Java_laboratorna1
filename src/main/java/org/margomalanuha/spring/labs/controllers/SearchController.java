@@ -1,20 +1,21 @@
 package org.margomalanuha.spring.labs.controllers;
 
-import lombok.AllArgsConstructor;
 import org.margomalanuha.spring.labs.models.pojo.Catalog;
 import org.margomalanuha.spring.labs.models.pojo.Product;
 import org.margomalanuha.spring.labs.service.ProductsService;
-import org.margomalanuha.spring.labs.service.ProductsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@AllArgsConstructor
+@Controller
 public class SearchController {
 
     private final ProductsService productsService;
 
-    public SearchController() {
-        productsService = new ProductsServiceImpl();
+    @Autowired
+    public SearchController(ProductsService productsService) {
+        this.productsService = productsService;
     }
 
     public List<Product> searchByTitle(String title) {

@@ -4,12 +4,14 @@ import lombok.SneakyThrows;
 import org.margomalanuha.spring.labs.models.pojo.User;
 import org.margomalanuha.spring.labs.repository.tools.Connector;
 import org.margomalanuha.spring.labs.repository.tools.Repository;
+import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@org.springframework.stereotype.Repository
 public class UserRepository extends Repository {
 
     @SneakyThrows

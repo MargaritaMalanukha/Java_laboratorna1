@@ -3,8 +3,11 @@ package org.margomalanuha.spring.labs.repository;
 import org.margomalanuha.spring.labs.models.pojo.Product;
 import org.margomalanuha.spring.labs.repository.tools.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@org.springframework.stereotype.Repository
 public class ProductRepository extends Repository {
 
     public int create(Product product) {

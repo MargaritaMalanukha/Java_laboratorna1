@@ -2,9 +2,11 @@ package org.margomalanuha.spring.labs.repository;
 
 import org.margomalanuha.spring.labs.models.pojo.Purchase;
 import org.margomalanuha.spring.labs.repository.tools.Repository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@org.springframework.stereotype.Repository
 public class PurchaseRepository extends Repository {
 
     public int create(Purchase purchase) {

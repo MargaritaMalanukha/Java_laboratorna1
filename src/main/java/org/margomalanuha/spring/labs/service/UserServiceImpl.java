@@ -2,13 +2,17 @@ package org.margomalanuha.spring.labs.service;
 
 import org.margomalanuha.spring.labs.models.pojo.User;
 import org.margomalanuha.spring.labs.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    public UserServiceImpl() {
-        userRepository = new UserRepository();
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override

@@ -1,21 +1,22 @@
 package org.margomalanuha.spring.labs.controllers;
 
-import lombok.AllArgsConstructor;
 import org.margomalanuha.spring.labs.models.pojo.Product;
 import org.margomalanuha.spring.labs.models.pojo.Purchase;
 import org.margomalanuha.spring.labs.models.pojo.User;
 import org.margomalanuha.spring.labs.service.PurchaseService;
-import org.margomalanuha.spring.labs.service.PurchaseServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@AllArgsConstructor
+@Controller
 public class BasketController {
 
     private final PurchaseService purchaseService;
 
-    public BasketController() {
-        purchaseService = new PurchaseServiceImpl();
+    @Autowired
+    public BasketController(PurchaseService purchaseService) {
+        this.purchaseService = purchaseService;
     }
 
     public void addToBasket(Product product, User user) {

@@ -3,16 +3,21 @@ package org.margomalanuha.spring.labs.service;
 import lombok.AllArgsConstructor;
 import org.margomalanuha.spring.labs.models.pojo.Catalog;
 import org.margomalanuha.spring.labs.repository.CatalogRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
+@Service
 public class CatalogServiceImpl implements CatalogService {
 
     private final CatalogRepository catalogRepository;
 
-    public CatalogServiceImpl() { this.catalogRepository = new CatalogRepository(); }
+    @Autowired
+    public CatalogServiceImpl(CatalogRepository catalogRepository) {
+        this.catalogRepository = catalogRepository;
+    }
 
     @Override
     public List<Catalog> getAllCatalogs() {

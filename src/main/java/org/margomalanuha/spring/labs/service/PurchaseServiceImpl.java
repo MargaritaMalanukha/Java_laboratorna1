@@ -1,32 +1,33 @@
 package org.margomalanuha.spring.labs.service;
 
-import lombok.AllArgsConstructor;
 import org.margomalanuha.spring.labs.models.pojo.BasketItem;
 import org.margomalanuha.spring.labs.models.pojo.Product;
 import org.margomalanuha.spring.labs.models.pojo.Purchase;
 import org.margomalanuha.spring.labs.models.pojo.User;
 import org.margomalanuha.spring.labs.repository.BasketItemRepository;
+import org.margomalanuha.spring.labs.repository.ProductRepository;
 import org.margomalanuha.spring.labs.repository.PurchaseRepository;
 import org.margomalanuha.spring.labs.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
+@Service
 public class PurchaseServiceImpl implements PurchaseService {
 
-    private UserRepository userRepository;
     private BasketItemRepository basketItemRepository;
-    private ProductsService productsService;
+    private ProductRepository productRepository;
     private PurchaseRepository purchaseRepository;
 
-    public PurchaseServiceImpl() {
-        userRepository = new UserRepository();
-        basketItemRepository = new BasketItemRepository();
-        productsService = new ProductsServiceImpl();
-        purchaseRepository = new PurchaseRepository();
-    }
+    @Autowired
+    public void setBasketItemRepository(BasketItemRepository basketItemRepository) { this.basketItemRepository = basketItemRepository; }
+    @Autowired
+    public void setProductRepository(ProductRepository productRepository) { this.productRepository = productRepository; }
+    @Autowired
+    public void setPurchaseRepository(PurchaseRepository purchaseRepository) { this.purchaseRepository = purchaseRepository; }
 
     @Override
     public void addToBasket(Product product, User user) {
@@ -45,7 +46,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     public List<Product> getBasket(User user) {
         return basketItemRepository.getAll().stream()
                 .filter(e -> e.getUserId() == user.getId())
-                .map(e -> productsService.getProductById(e.getId()))
+                .map(e -> productRepository.getById(e.getId()))
                 .collect(Collectors.toList());
     }
 

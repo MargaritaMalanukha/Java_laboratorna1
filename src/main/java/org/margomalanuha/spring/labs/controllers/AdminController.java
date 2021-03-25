@@ -1,22 +1,22 @@
 package org.margomalanuha.spring.labs.controllers;
 
-import lombok.AllArgsConstructor;
 import org.margomalanuha.spring.labs.models.pojo.Catalog;
 import org.margomalanuha.spring.labs.models.pojo.Product;
 import org.margomalanuha.spring.labs.models.pojo.User;
 import org.margomalanuha.spring.labs.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
-@AllArgsConstructor
+@Controller
 public class AdminController {
 
-    private final ProductsService productsService;
-    private final UserService userService;
+    private ProductsService productsService;
+    private UserService userService;
 
-
-    public AdminController() {
-        productsService = new ProductsServiceImpl();
-        userService = new UserServiceImpl();
-    }
+    @Autowired
+    public void setProductsService(ProductsService productsService) { this.productsService = productsService; }
+    @Autowired
+    public void setUserService(UserService userService) { this.userService = userService; }
 
     public void createProduct(String title, double price, Catalog catalog) { productsService.createProduct(title, price, catalog); }
     public void deleteProduct(Product product) { productsService.deleteProduct(product); }

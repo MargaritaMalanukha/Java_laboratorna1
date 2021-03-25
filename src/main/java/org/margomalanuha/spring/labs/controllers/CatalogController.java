@@ -1,19 +1,20 @@
 package org.margomalanuha.spring.labs.controllers;
 
-import lombok.AllArgsConstructor;
 import org.margomalanuha.spring.labs.models.pojo.Catalog;
 import org.margomalanuha.spring.labs.service.CatalogService;
-import org.margomalanuha.spring.labs.service.CatalogServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@AllArgsConstructor
+@Controller
 public class CatalogController {
 
     private final CatalogService catalogService;
 
-    public CatalogController() {
-        this.catalogService = new CatalogServiceImpl();
+    @Autowired
+    public CatalogController(CatalogService catalogService) {
+        this.catalogService = catalogService;
     }
 
     public List<Catalog> getAllCatalogs() {

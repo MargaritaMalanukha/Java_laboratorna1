@@ -4,17 +4,20 @@ import lombok.AllArgsConstructor;
 import org.margomalanuha.spring.labs.models.pojo.Catalog;
 import org.margomalanuha.spring.labs.models.pojo.Product;
 import org.margomalanuha.spring.labs.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
+@Service
 public class ProductsServiceImpl implements ProductsService {
 
     private final ProductRepository repository;
 
-    public ProductsServiceImpl() {
-        repository = new ProductRepository();
+    @Autowired
+    public ProductsServiceImpl(ProductRepository repository) {
+        this.repository = repository;
     }
 
     @Override
