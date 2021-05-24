@@ -21,8 +21,8 @@ public class CatalogController {
         return catalogService.getAllCatalogs();
     }
     public List<Catalog> getSubdirectoriesById(int id) { return catalogService.getSubdirectoriesById(id); }
-    public void createCatalog(String title) {
-        catalogService.createCatalog(title);
+    public void createCatalog(String title, int upperCatalogId) {
+        catalogService.createCatalog(title, upperCatalogId);
     }
     public void updateCatalog(Catalog catalog) {
         catalogService.updateCatalog(catalog);

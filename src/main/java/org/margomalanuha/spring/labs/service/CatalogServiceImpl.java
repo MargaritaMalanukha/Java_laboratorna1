@@ -33,8 +33,8 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    public void createCatalog(String title) {
-        catalogRepository.create(new Catalog(title, 0));
+    public void createCatalog(String title, int upperCatalogId) {
+        catalogRepository.create(new Catalog(title, upperCatalogId));
     }
 
     @Override

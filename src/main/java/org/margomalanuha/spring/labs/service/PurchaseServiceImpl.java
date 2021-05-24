@@ -1,5 +1,6 @@
 package org.margomalanuha.spring.labs.service;
 
+import lombok.AllArgsConstructor;
 import org.margomalanuha.spring.labs.models.pojo.BasketItem;
 import org.margomalanuha.spring.labs.models.pojo.Product;
 import org.margomalanuha.spring.labs.models.pojo.Purchase;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
 
@@ -46,7 +48,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     public List<Product> getBasket(User user) {
         return basketItemRepository.getAll().stream()
                 .filter(e -> e.getUserId() == user.getId())
-                .map(e -> productRepository.getById(e.getId()))
+                .map(e -> productRepository.getById(e.getProductId()))
                 .collect(Collectors.toList());
     }
 
@@ -62,6 +64,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         List<Product> list = getBasket(user);
         StringBuilder cheque = new StringBuilder();
         list.forEach(e -> cheque.append(e.toString()).append(" \n"));
+        System.out.println(cheque);
         cheque.append(user.hashCode());
         double price = list.stream().mapToDouble(Product::getPrice).sum();
         purchaseRepository.create(new Purchase(user.getId(), price, cheque.toString()));

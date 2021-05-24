@@ -2,8 +2,10 @@ package org.margomalanuha.spring.labs.models.pojo;
 
 import lombok.*;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
@@ -11,6 +13,8 @@ import java.sql.Timestamp;
 @EqualsAndHashCode
 public class Purchase {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int userId;
     private double price;

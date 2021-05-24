@@ -13,7 +13,6 @@ public class Repository {
     protected DataSource dataSource;
     protected JdbcTemplate jdbcTemplate;
     protected Connection connection;
-    protected PreparedStatement statement;
 
     public Repository(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -33,6 +32,12 @@ public class Repository {
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
+    }
+
+    public void setTest() {
+        this.dataSource = new DriverManagerDataSource(Connector.TEST_URL, Connector.USERNAME, Connector.PASSWORD);
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+        setConnection();
     }
 
 }

@@ -42,13 +42,13 @@ public class ProductsServiceImpl implements ProductsService {
 
     @Override
     public List<Product> filterByMaxPrice(double price) {
-        return repository.getAll().stream().filter(e -> e.getPrice() < price).collect(Collectors.toList());
+        return repository.getAll().stream().filter(e -> e.getPrice() <= price).collect(Collectors.toList());
     }
 
     @Override
     public List<Product> filterByMaxPriceAndCatalog(double price, Catalog catalog) {
         List<Product> list = getProductsByCatalog(catalog);
-        return list.stream().filter(e -> e.getPrice() < price).collect(Collectors.toList());
+        return list.stream().filter(e -> e.getPrice() <= price).collect(Collectors.toList());
     }
 
     @Override
