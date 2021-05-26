@@ -2,9 +2,11 @@ package org.margomalanuha.spring.labs.service;
 
 import org.margomalanuha.spring.labs.models.pojo.Catalog;
 import org.margomalanuha.spring.labs.models.pojo.Product;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public interface ProductsService {
 
     List<Product> getAllProducts();

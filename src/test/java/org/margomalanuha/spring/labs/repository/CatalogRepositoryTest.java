@@ -1,6 +1,7 @@
 package org.margomalanuha.spring.labs.repository;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.margomalanuha.spring.labs.config.Config;
 import org.margomalanuha.spring.labs.models.pojo.Catalog;
@@ -12,7 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class CatalogRepositoryTest {
 
-    public CatalogRepository catalogRepository = new CatalogRepository();
+    public CatalogRepository catalogRepository;
+
+    @Before
+    public void init() {
+        catalogRepository = new CatalogRepository();
+        catalogRepository.setTest();
+    }
 
     @Test
     public void create_WhenDataIsCorrect_ShouldCreateNewRecord() {
@@ -24,9 +31,11 @@ public class CatalogRepositoryTest {
 
     @Test
     public void update_WhenDataIsCorrect_ShouldUpdateRecord() {
-        catalogRepository.update(new Catalog(11, "NewTitle", 0));
-        Catalog catalog = catalogRepository.getById(11);
-        Assert.assertEquals(new Catalog(11, "NewTitle", 0), catalog);
+        int catalogId = 16;
+        catalogRepository.update(new Catalog(catalogId, "NewTitle", 0));
+        Catalog catalog = catalogRepository.getById(catalogId);
+        System.out.println(catalog);
+        Assert.assertEquals(new Catalog(catalogId, "NewTitle", null), catalog);
     }
 
     @Test

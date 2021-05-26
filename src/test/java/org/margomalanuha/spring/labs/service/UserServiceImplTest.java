@@ -36,7 +36,7 @@ public class UserServiceImplTest {
         Mockito.doReturn(1).when(repository).create(user);
 
         //WHEN
-        User actual = userService.register(name, surname, email, password);
+        User actual = userService.register(user);
 
         //THEN
         Mockito.verify(repository).create(user);

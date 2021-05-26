@@ -1,6 +1,8 @@
 package org.margomalanuha.spring.labs.service;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.margomalanuha.spring.labs.models.pojo.BasketItem;
 import org.margomalanuha.spring.labs.models.pojo.Product;
 import org.margomalanuha.spring.labs.models.pojo.Purchase;
@@ -10,6 +12,8 @@ import org.margomalanuha.spring.labs.repository.ProductRepository;
 import org.margomalanuha.spring.labs.repository.PurchaseRepository;
 import org.margomalanuha.spring.labs.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +22,9 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
+@NoArgsConstructor
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Getter
 public class PurchaseServiceImpl implements PurchaseService {
 
     private BasketItemRepository basketItemRepository;

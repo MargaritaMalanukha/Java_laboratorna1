@@ -1,18 +1,25 @@
 package org.margomalanuha.spring.labs.service;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.margomalanuha.spring.labs.models.pojo.Catalog;
 import org.margomalanuha.spring.labs.repository.CatalogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@NoArgsConstructor
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Getter
 public class CatalogServiceImpl implements CatalogService {
 
-    private final CatalogRepository catalogRepository;
+    private CatalogRepository catalogRepository;
 
     @Autowired
     public CatalogServiceImpl(CatalogRepository catalogRepository) {

@@ -2,6 +2,8 @@ package org.margomalanuha.spring.labs;
 
 import org.margomalanuha.spring.labs.config.Config;
 import org.margomalanuha.spring.labs.controllers.AdminController;
+import org.margomalanuha.spring.labs.service.ProductsService;
+import org.margomalanuha.spring.labs.service.ProductsServiceImpl;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
@@ -10,8 +12,8 @@ public class Main {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
 
         AdminController adminController = context.getBean("adminController", AdminController.class);
-        AdminController adminController1 = context.getBean("adminController", AdminController.class);
-        System.out.println(adminController == adminController1);
+        ProductsServiceImpl productsService = context.getBean("productsServiceImpl", ProductsServiceImpl.class);
+        System.out.println("here");
 
         context.close();
     }

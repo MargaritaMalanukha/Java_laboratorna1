@@ -3,9 +3,11 @@ package org.margomalanuha.spring.labs.service;
 import org.margomalanuha.spring.labs.models.pojo.Product;
 import org.margomalanuha.spring.labs.models.pojo.Purchase;
 import org.margomalanuha.spring.labs.models.pojo.User;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public interface PurchaseService {
 
     void addToBasket(Product product, User user);
