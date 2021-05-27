@@ -1,39 +1,53 @@
 package org.margomalanuha.spring.labs.models.pojo;
 
 import lombok.*;
-import org.margomalanuha.spring.labs.repository.UserTypeRepository;
 
 import javax.persistence.*;
-import java.util.NoSuchElementException;
+import java.util.List;
 
 @Entity
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-@ToString
+@Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private int id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "surname")
     private String surname;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "password")
     private String password;
-    private int userTypeId;
+
+    @JoinColumn(name = "user_type_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    private UserType userType;
+
+    @Column(name = "is_active", nullable = false)
     private boolean isActive;
 
-    public User(String name, String surname, String email, String password) {
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<BasketItem> basketItems;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Purchase> purchases;
+
+    public User(String name, String surname, String email, String password, UserType userType) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
-        userTypeId = new UserTypeRepository().getAll().stream()
-                .filter(e -> e.getTitle().equals("User"))
-                .mapToInt(UserType::getId)
-                .findFirst().orElseThrow(NoSuchElementException::new);
+        this.userType = userType;
         isActive = true;
     }
 

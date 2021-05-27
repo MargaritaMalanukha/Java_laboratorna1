@@ -16,30 +16,25 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.web.AnnotationConfigWebContextLoader;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
 
-//todo
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration( loader = AnnotationConfigWebContextLoader.class, classes = {Config.class})
 @SpringBootTest(classes = UserControllerIntegrationTest.class, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = "spring.autoconfigure.exclude=com.vaadin.flow.spring.SpringBootAutoConfiguration")
 @Transactional
 public class UserControllerIntegrationTest {
 
-    private static ApplicationContext context;
+   /* private static ApplicationContext context;
     private UserController userController;
-    private UserServiceImpl userService;
 
     @Before
     public void init() {
         context = new AnnotationConfigApplicationContext(Config.class);
-        userService = context.getBean(UserServiceImpl.class);
-        userService.getUserRepository().setTest();
-        userController = new UserController(userService);
+        userController = context.getBean(UserController.class);
     }
 
     @Test
@@ -98,5 +93,11 @@ public class UserControllerIntegrationTest {
         //WHEN
         User user = userController.login(email, password);
     }
+
+    @Test
+    public void updateData_whenDataIsCorrect_updateUserInDatabase() {
+        //GIVEN
+
+    }*/
 
 }

@@ -1,6 +1,7 @@
 package org.margomalanuha.spring.labs.service;
 
 import org.margomalanuha.spring.labs.models.pojo.User;
+import org.margomalanuha.spring.labs.models.pojo.UserType;
 import org.margomalanuha.spring.labs.service.exceptions.WrongEmailOrPasswordException;
 import org.springframework.stereotype.Component;
 
@@ -14,5 +15,6 @@ public interface UserService {
     void updateData(User user);
     void deactivateUser(User user);
     List<User> getAllUsers();
+    List<UserType> getAllUserTypes();
 
 }

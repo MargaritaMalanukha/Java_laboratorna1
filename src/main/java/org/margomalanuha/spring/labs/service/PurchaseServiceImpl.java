@@ -3,14 +3,10 @@ package org.margomalanuha.spring.labs.service;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.margomalanuha.spring.labs.models.pojo.BasketItem;
-import org.margomalanuha.spring.labs.models.pojo.Product;
-import org.margomalanuha.spring.labs.models.pojo.Purchase;
-import org.margomalanuha.spring.labs.models.pojo.User;
+import org.margomalanuha.spring.labs.models.pojo.*;
 import org.margomalanuha.spring.labs.repository.BasketItemRepository;
 import org.margomalanuha.spring.labs.repository.ProductRepository;
 import org.margomalanuha.spring.labs.repository.PurchaseRepository;
-import org.margomalanuha.spring.labs.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -40,30 +36,31 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public void addToBasket(Product product, User user) {
-        basketItemRepository.create(new BasketItem(product.getId(), user.getId()));
+        basketItemRepository.save(new BasketItem(product, user));
     }
 
     @Override
     public void deleteFromBasket(Product product, User user) throws NoSuchElementException {
-        BasketItem basketItem = basketItemRepository.getAll().stream()
-                .filter(e -> (e.getProductId() == product.getId()) && (e.getUserId() == user.getId()))
+        BasketItem basketItem = basketItemRepository.findAll().stream()
+                .filter(e -> (e.getProduct().getId() == product.getId()) && (e.getUser().getId() == user.getId()))
                 .findFirst().orElseThrow(NoSuchElementException::new);
-        basketItemRepository.delete(basketItem.getId());
+        basketItemRepository.delete(basketItem);
     }
 
     @Override
     public List<Product> getBasket(User user) {
-        return basketItemRepository.getAll().stream()
-                .filter(e -> e.getUserId() == user.getId())
-                .map(e -> productRepository.getById(e.getProductId()))
+        return basketItemRepository.findAll().stream()
+                .filter(e -> e.getUser().getId() == user.getId())
+                .map(e -> productRepository.findById(e.getProduct().getId())
+                        .orElse(new Product("unknown product", 0, new Catalog())))
                 .collect(Collectors.toList());
     }
 
     @Override
     public void clearBasket(User user) {
-        basketItemRepository.getAll().stream()
-                .filter(e -> e.getUserId() == user.getId())
-                .forEach(e -> basketItemRepository.delete(e.getId()));
+        basketItemRepository.findAll().stream()
+                .filter(e -> e.getUser().getId() == user.getId())
+                .forEach(e -> basketItemRepository.delete(e));
     }
 
     @Override
@@ -74,19 +71,19 @@ public class PurchaseServiceImpl implements PurchaseService {
         System.out.println(cheque);
         cheque.append(user.hashCode());
         double price = list.stream().mapToDouble(Product::getPrice).sum();
-        purchaseRepository.create(new Purchase(user.getId(), price, cheque.toString()));
+        purchaseRepository.save(new Purchase(user, price, cheque.toString()));
     }
 
     @Override
     public List<Purchase> getPurchaseHistory(User user) {
-        return purchaseRepository.getAll().stream()
-                .filter(e -> user.getId() == e.getUserId())
+        return purchaseRepository.findAll().stream()
+                .filter(e -> user.getId() == e.getUser().getId())
                 .collect(Collectors.toList());
     }
 
     @Override
     public double returnPriceByCheque(String cheque, Product product) {
-        Purchase purchase = purchaseRepository.getAll().stream()
+        Purchase purchase = purchaseRepository.findAll().stream()
                 .filter(e -> e.getCheque().equals(cheque))
                 .findAny().orElse(null);
         if (purchase == null || !purchase.getCheque().contains(product.getTitle())) return 0;

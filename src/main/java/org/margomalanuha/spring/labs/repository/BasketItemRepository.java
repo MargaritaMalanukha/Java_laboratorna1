@@ -1,44 +1,11 @@
 package org.margomalanuha.spring.labs.repository;
 
 import org.margomalanuha.spring.labs.models.pojo.BasketItem;
-import org.margomalanuha.spring.labs.repository.tools.Repository;
-import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
-@org.springframework.stereotype.Repository
-public class BasketItemRepository extends Repository {
-
-    public int create(BasketItem basketItem) {
-        String sql = "insert into basket_items(product_id, user_id) values(" + basketItem.getProductId()
-                + "," + basketItem.getUserId() + ")";
-        return jdbcTemplate.update(sql);
-    }
-
-    public int update(BasketItem basketItem) {
-        String sql = "update basket_items set product_id=" + basketItem.getProductId() + ", user_id=" + basketItem.getUserId()
-                + " where id=" + basketItem.getId();
-        return jdbcTemplate.update(sql);
-    }
-
-    public int delete(int id) {
-        String sql = "delete from basket_items where id=" + id;
-        return jdbcTemplate.update(sql);
-    }
-
-    public BasketItem getById(int id) {
-        String sql = "select * from basket_items where id=" + id;
-        return jdbcTemplate.queryForObject(sql, BasketItem.class);
-    }
-
-    public List<BasketItem> getAll() {
-        return jdbcTemplate.query("select * from basket_items", (rs, row) -> {
-            BasketItem e = new BasketItem();
-            e.setId(rs.getInt(1));
-            e.setProductId(rs.getInt(2));
-            e.setUserId(rs.getInt(3));
-            return e;
-        });
-    }
-
+@Repository
+@Transactional
+public interface BasketItemRepository extends JpaRepository<BasketItem, Integer> {
 }

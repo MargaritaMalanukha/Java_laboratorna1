@@ -6,23 +6,32 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@Table(name = "purchases")
 public class Purchase {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private int id;
-    private int userId;
+
+    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
+
+    @Column(name = "price", nullable = false)
     private double price;
+
+    @Column(name = "cheque")
     private String cheque;
+
+    @Column(name = "time")
     private Timestamp time;
 
-    public Purchase(int userId, double price, String cheque) {
-        this.userId = userId;
+    public Purchase(User user, double price, String cheque) {
+        this.user = user;
         this.price = price;
         this.cheque = cheque;
         time = new Timestamp(System.currentTimeMillis());

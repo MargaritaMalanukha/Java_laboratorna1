@@ -15,13 +15,12 @@ import java.util.List;
 @ExtendWith(MockitoExtension.class)
 public class CatalogServiceImplTest {
 
-    private CatalogRepository repository;
+   /* private CatalogRepository repository;
     private CatalogServiceImpl catalogService;
 
     @Before
     public void mock() {
         repository = Mockito.mock(CatalogRepository.class);
-        repository.setTest();
         catalogService = new CatalogServiceImpl(repository);
     }
 
@@ -32,13 +31,13 @@ public class CatalogServiceImplTest {
         catalogs.add(new Catalog(1, "milk products", 0));
         catalogs.add(new Catalog(2, "sweet products", 0));
         catalogs.add(new Catalog(3, "cheeses", 1));
-        Mockito.doReturn(catalogs).when(repository).getAll();
+        Mockito.doReturn(catalogs).when(repository).findAll();
 
         //WHEN
         List<Catalog> actual = catalogService.getAllCatalogs();
 
         //THEN
-        Mockito.verify(repository, Mockito.times(1)).getAll();
+        Mockito.verify(repository, Mockito.times(1)).findAll();
         Assertions.assertEquals(catalogs, actual);
     }
 
@@ -51,13 +50,13 @@ public class CatalogServiceImplTest {
         catalogs.add(new Catalog(2, "cheeses", 1));
         catalogs.add(new Catalog(3, "butters", 1));
         catalogs.add(new Catalog(4, "fishes", 0));
-        Mockito.doReturn(catalogs).when(repository).getAll();
+        Mockito.doReturn(catalogs).when(repository).findAll();
 
         //WHEN
         List<Catalog> actual = catalogService.getAllCatalogs();
 
         //THEN
-        Mockito.verify(repository, Mockito.times(1)).getAll();
+        Mockito.verify(repository, Mockito.times(1)).findAll();
         catalogs.remove(3);
         catalogs.remove(0);
         Assertions.assertEquals(catalogs, actual);
@@ -68,39 +67,37 @@ public class CatalogServiceImplTest {
         //GIVEN
         String title = "milk products";
         int upperCatalogId = 0;
-        Mockito.doReturn(1).when(repository).create(new Catalog(title, upperCatalogId));
 
         //WHEN
         catalogService.createCatalog(title, upperCatalogId);
 
         //THEN
-        Mockito.verify(repository, Mockito.times(1)).create(new Catalog(title, upperCatalogId));
+        Mockito.verify(repository, Mockito.times(1)).save(new Catalog(title, upperCatalogId));
     }
 
     @Test
     public void updateCatalog_whenDataIsCorrect_updateCatalog() {
         //GIVEN
         Catalog catalog = new Catalog("milk products", 0);
-        Mockito.doReturn(1).when(repository).update(catalog);
 
         //WHEN
         catalogService.updateCatalog(catalog);
 
         //THEN
-        Mockito.verify(repository, Mockito.times(1)).update(catalog);
+        Mockito.verify(repository, Mockito.times(1)).save(catalog);
     }
 
     @Test
     public void deleteCatalog_whenCatalogExists_deleteCatalog() {
         //GIVEN
-        int catalogId = 100;
-        Mockito.doReturn(1).when(repository).delete(catalogId);
+        Catalog catalog = new Catalog();
+        catalog.setId(1);
 
         //WHEN
-        catalogService.deleteCatalog(catalogId);
+        catalogService.deleteCatalog(catalog);
 
         //THEN
-        Mockito.verify(repository, Mockito.times(1)).delete(catalogId);
+        Mockito.verify(repository, Mockito.times(1)).delete(catalog);
     }
 
     @Test
@@ -108,14 +105,13 @@ public class CatalogServiceImplTest {
         //GIVEN
         String title = "cheeses";
         Catalog catalog = new Catalog(1, "milk products", 0);
-        Mockito.doReturn(1).when(repository).create(new Catalog(title, catalog.getId()));
 
         //WHEN
         catalogService.createCatalog(title, catalog.getId());
 
         //THEN
-        Mockito.verify(repository, Mockito.times(1)).create(new Catalog(title, catalog.getId()));
-    }
+        Mockito.verify(repository, Mockito.times(1)).save(new Catalog(title, catalog.getId()));
+    }*/
 
 
 }

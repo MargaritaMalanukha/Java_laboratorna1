@@ -1,6 +1,5 @@
 package org.margomalanuha.spring.labs.service;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.margomalanuha.spring.labs.models.pojo.Catalog;
@@ -28,34 +27,34 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public List<Catalog> getAllCatalogs() {
-        return catalogRepository.getAll();
+        return catalogRepository.findAll();
     }
 
     @Override
     public List<Catalog> getSubdirectoriesById(int id) {
-        return catalogRepository.getAll()
+        return catalogRepository.findAll()
                 .stream()
-                .filter(e -> e.getUpperCatalogId() == id)
+                .filter(e -> e.getCatalog().getId() == id)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void createCatalog(String title, int upperCatalogId) {
-        catalogRepository.create(new Catalog(title, upperCatalogId));
+    public void createCatalog(String title, Catalog catalog) {
+        catalogRepository.save(new Catalog(title, catalog));
     }
 
     @Override
     public void updateCatalog(Catalog catalog) {
-        catalogRepository.update(catalog);
+        catalogRepository.save(catalog);
     }
 
     @Override
-    public void deleteCatalog(int id) {
-        catalogRepository.delete(id);
+    public void deleteCatalog(Catalog catalog) {
+        catalogRepository.delete(catalog);
     }
 
     @Override
     public void createCatalogInCatalog(String title, Catalog catalog) {
-        catalogRepository.create(new Catalog(title, catalog.getId()));
+        catalogRepository.save(new Catalog(title, catalog));
     }
 }

@@ -13,7 +13,8 @@ public class Main {
 
         AdminController adminController = context.getBean("adminController", AdminController.class);
         ProductsServiceImpl productsService = context.getBean("productsServiceImpl", ProductsServiceImpl.class);
-        System.out.println("here");
+
+        productsService.getAllProducts().forEach(System.out::println);
 
         context.close();
     }

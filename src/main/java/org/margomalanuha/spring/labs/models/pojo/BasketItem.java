@@ -1,27 +1,32 @@
 package org.margomalanuha.spring.labs.models.pojo;
 
 import lombok.*;
+import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@Table(name = "basket_items")
 public class BasketItem {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private int id;
 
-    private int productId;
-    private int userId;
+    @JoinColumn(name = "product_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Product product;
 
-    public BasketItem(int productId, int userId) {
-        this.productId = productId;
-        this.userId = userId;
+    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
+
+    public BasketItem(Product product, User user) {
+        this.product = product;
+        this.user = user;
     }
 
 }

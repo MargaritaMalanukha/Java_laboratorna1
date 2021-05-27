@@ -10,9 +10,9 @@ public interface CatalogService {
 
     List<Catalog> getAllCatalogs();
     List<Catalog> getSubdirectoriesById(int id);
-    void createCatalog(String title, int upperCatalogId);
+    void createCatalog(String title, Catalog catalog);
     void updateCatalog(Catalog catalog);
-    void deleteCatalog(int id);
+    void deleteCatalog(Catalog catalog);
     void createCatalogInCatalog(String title, Catalog catalog);
 
 }

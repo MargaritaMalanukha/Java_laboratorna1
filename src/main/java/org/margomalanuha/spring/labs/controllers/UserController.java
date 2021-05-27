@@ -6,9 +6,7 @@ import org.margomalanuha.spring.labs.controllers.exceptions.LoginException;
 import org.margomalanuha.spring.labs.controllers.exceptions.RegistrationException;
 import org.margomalanuha.spring.labs.models.pojo.User;
 import org.margomalanuha.spring.labs.service.UserService;
-import org.margomalanuha.spring.labs.service.exceptions.WrongEmailOrPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
