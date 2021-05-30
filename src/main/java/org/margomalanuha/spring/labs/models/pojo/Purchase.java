@@ -30,6 +30,9 @@ public class Purchase {
     @Column(name = "time")
     private Timestamp time;
 
+    @Column(name = "status")
+    private String status;
+
     public Purchase(User user, double price, String cheque) {
         this.user = user;
         this.price = price;

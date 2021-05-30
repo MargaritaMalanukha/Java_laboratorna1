@@ -1,29 +1,11 @@
 package org.margomalanuha.spring.labs.controller;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.margomalanuha.spring.labs.config.Config;
-import org.margomalanuha.spring.labs.controllers.AdminController;
-import org.margomalanuha.spring.labs.controllers.ProductsController;
-import org.margomalanuha.spring.labs.models.pojo.Catalog;
-import org.margomalanuha.spring.labs.models.pojo.Product;
-import org.margomalanuha.spring.labs.models.pojo.User;
-import org.margomalanuha.spring.labs.service.ProductsService;
-import org.margomalanuha.spring.labs.service.ProductsServiceImpl;
-import org.margomalanuha.spring.labs.service.UserService;
-import org.margomalanuha.spring.labs.service.UserServiceImpl;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.AnnotationConfigWebContextLoader;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration( loader = AnnotationConfigWebContextLoader.class, classes = {Config.class})

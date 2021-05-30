@@ -10,12 +10,12 @@ import java.util.List;
 @Component
 public interface PurchaseService {
 
-    void addToBasket(Product product, User user);
-    void deleteFromBasket(Product product, User user);
-    List<Product> getBasket(User user);
-    void clearBasket(User user);
-    void addPurchaseToHistory(User user);
-    List<Purchase> getPurchaseHistory(User user);
-    double returnPriceByCheque(String cheque, Product product);
+    void addToBasket(int productId, int userId);
+    void deleteFromBasket(int productId, int userId);
+    List<Product> getBasket(int userId);
+    void clearBasket(int userId);
+    Purchase addPurchaseToHistory(int userId);
+    List<Purchase> getPurchaseHistory(int userId);
+    List<Purchase> getAllNonFinishedPurchases();
 
 }

@@ -1,6 +1,8 @@
 package org.margomalanuha.spring.labs.models.pojo;
 
 import lombok.*;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,7 +11,6 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "catalogs")
 public class Catalog {
     @Id
@@ -20,8 +21,9 @@ public class Catalog {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @JoinColumn(name = "catalog_id", nullable = false)
+    @JoinColumn(name = "catalog_id")
     @ManyToOne(fetch = FetchType.EAGER)
+    @NotFound(action = NotFoundAction.IGNORE)
     private Catalog catalog;
 
     @OneToMany(mappedBy = "catalog", fetch = FetchType.LAZY)
@@ -32,6 +34,20 @@ public class Catalog {
 
     public Catalog(String title, Catalog catalog) {
         this.title = title;
+        setCatalog(catalog);
+    }
+
+    public Catalog(int id, String title, Catalog catalog) {
+        this.id = id;
+        this.title = title;
+        setCatalog(catalog);
+    }
+
+    public Catalog(Catalog catalog) {
+        setCatalog(catalog);
+    }
+
+    public void setCatalog(Catalog catalog) {
         this.catalog = catalog;
     }
 }

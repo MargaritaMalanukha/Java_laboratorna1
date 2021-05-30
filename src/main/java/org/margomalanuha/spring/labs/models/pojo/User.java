@@ -13,7 +13,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
 
@@ -28,6 +28,12 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "mobile_phone")
+    private String mobile_phone;
+
+    @Column(name = "address")
+    private String address;
 
     @JoinColumn(name = "user_type_id", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)

@@ -35,60 +35,65 @@ public class PurchaseServiceImpl implements PurchaseService {
     public void setPurchaseRepository(PurchaseRepository purchaseRepository) { this.purchaseRepository = purchaseRepository; }
 
     @Override
-    public void addToBasket(Product product, User user) {
+    public void addToBasket(int productId, int userId) {
+        Product product = new Product();
+        product.setId(productId);
+        User user = new User();
+        user.setId(userId);
         basketItemRepository.save(new BasketItem(product, user));
     }
 
     @Override
-    public void deleteFromBasket(Product product, User user) throws NoSuchElementException {
+    public void deleteFromBasket(int productId, int userId) throws NoSuchElementException {
         BasketItem basketItem = basketItemRepository.findAll().stream()
-                .filter(e -> (e.getProduct().getId() == product.getId()) && (e.getUser().getId() == user.getId()))
+                .filter(e -> (e.getProduct().getId() == productId) && (e.getUser().getId() == userId))
                 .findFirst().orElseThrow(NoSuchElementException::new);
         basketItemRepository.delete(basketItem);
     }
 
     @Override
-    public List<Product> getBasket(User user) {
+    public List<Product> getBasket(int userId) {
         return basketItemRepository.findAll().stream()
-                .filter(e -> e.getUser().getId() == user.getId())
+                .filter(e -> e.getUser().getId() == userId)
                 .map(e -> productRepository.findById(e.getProduct().getId())
                         .orElse(new Product("unknown product", 0, new Catalog())))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void clearBasket(User user) {
+    public void clearBasket(int userId) {
         basketItemRepository.findAll().stream()
-                .filter(e -> e.getUser().getId() == user.getId())
+                .filter(e -> e.getUser().getId() == userId)
                 .forEach(e -> basketItemRepository.delete(e));
     }
 
     @Override
-    public void addPurchaseToHistory(User user) {
-        List<Product> list = getBasket(user);
+    public Purchase addPurchaseToHistory(int userId) {
+        List<Product> list = getBasket(userId);
         StringBuilder cheque = new StringBuilder();
         list.forEach(e -> cheque.append(e.toString()).append(" \n"));
         System.out.println(cheque);
+        User user = new User();
+        user.setId(userId);
         cheque.append(user.hashCode());
         double price = list.stream().mapToDouble(Product::getPrice).sum();
-        purchaseRepository.save(new Purchase(user, price, cheque.toString()));
+        return purchaseRepository.save(new Purchase(user, price, cheque.toString()));
     }
 
     @Override
-    public List<Purchase> getPurchaseHistory(User user) {
+    public List<Purchase> getPurchaseHistory(int userId) {
         return purchaseRepository.findAll().stream()
-                .filter(e -> user.getId() == e.getUser().getId())
+                .filter(e -> userId == e.getUser().getId())
                 .collect(Collectors.toList());
     }
 
     @Override
-    public double returnPriceByCheque(String cheque, Product product) {
-        Purchase purchase = purchaseRepository.findAll().stream()
-                .filter(e -> e.getCheque().equals(cheque))
-                .findAny().orElse(null);
-        if (purchase == null || !purchase.getCheque().contains(product.getTitle())) return 0;
-        double lastPrice = purchase.getPrice();
-        purchase.setPrice(lastPrice - product.getPrice());
-        return purchase.getPrice();
+    public List<Purchase> getAllNonFinishedPurchases() {
+        return purchaseRepository.findAll()
+                .stream()
+                .filter(e -> e.getStatus().equalsIgnoreCase("not started"))
+                .collect(Collectors.toList());
     }
+
+
 }

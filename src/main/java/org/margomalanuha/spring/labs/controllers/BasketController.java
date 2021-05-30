@@ -6,7 +6,7 @@ import org.margomalanuha.spring.labs.models.pojo.Purchase;
 import org.margomalanuha.spring.labs.models.pojo.User;
 import org.margomalanuha.spring.labs.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,23 +21,31 @@ public class BasketController {
         this.purchaseService = purchaseService;
     }
 
-    public void addToBasket(Product product, User user) {
-        purchaseService.addToBasket(product, user);
+    public void addToBasket(Integer productId, Integer userId) {
+        purchaseService.addToBasket(productId, userId);
     }
-    public void deleteFromBasket(Product product, User user) {
-        purchaseService.deleteFromBasket(product, user);
+
+    public void deleteFromBasket(Integer productId, Integer userId) {
+        purchaseService.deleteFromBasket(productId, userId);
     }
-    public List<Product> getBasket(User user) {
-        return purchaseService.getBasket(user);
+
+    public List<Product> getBasket(Integer userId) {
+        return purchaseService.getBasket(userId);
     }
-    public void clearBasket(User user) {
-        purchaseService.clearBasket(user);
+
+    public void clearBasket(Integer userId) {
+        purchaseService.clearBasket(userId);
     }
-    public void addPurchaseToHistory(User user) {
-        purchaseService.addPurchaseToHistory(user);
+
+    public Purchase addPurchaseToHistory(Integer userId) {
+        return purchaseService.addPurchaseToHistory(userId);
     }
-    public List<Purchase> getPurchaseHistory(User user) {
-        return purchaseService.getPurchaseHistory(user);
+
+    public List<Purchase> getPurchaseHistory(Integer userId) {
+        return purchaseService.getPurchaseHistory(userId);
     }
-    public double returnPriceByCheque(String cheque, Product product) { return purchaseService.returnPriceByCheque(cheque, product); }
+
+    public List<Purchase> getAllNonFinishedPurchases() {
+        return purchaseService.getAllNonFinishedPurchases();
+    }
 }

@@ -12,10 +12,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.LinkedList;
 import java.util.List;
 
-@ExtendWith(MockitoExtension.class)
+/*@ExtendWith(MockitoExtension.class)
 public class CatalogServiceImplTest {
 
-   /* private CatalogRepository repository;
+    private CatalogRepository repository;
     private CatalogServiceImpl catalogService;
 
     @Before
@@ -28,9 +28,10 @@ public class CatalogServiceImplTest {
     public void getAllCatalogs_whenCatalogsAreInDatabase_returnListOfAllCatalogs() {
         //GIVEN
         List<Catalog> catalogs = new LinkedList<>();
-        catalogs.add(new Catalog(1, "milk products", 0));
-        catalogs.add(new Catalog(2, "sweet products", 0));
-        catalogs.add(new Catalog(3, "cheeses", 1));
+        Catalog milkProducts = new Catalog(2, "milk products", new Catalog(1, "Primary", new Catalog()));
+        catalogs.add(milkProducts);
+        catalogs.add(new Catalog(3, "sweet products", new Catalog(1, "Primary", new Catalog())));
+        catalogs.add(new Catalog(4, "cheeses", milkProducts));
         Mockito.doReturn(catalogs).when(repository).findAll();
 
         //WHEN
@@ -111,7 +112,7 @@ public class CatalogServiceImplTest {
 
         //THEN
         Mockito.verify(repository, Mockito.times(1)).save(new Catalog(title, catalog.getId()));
-    }*/
+    }
 
 
-}
+}*/

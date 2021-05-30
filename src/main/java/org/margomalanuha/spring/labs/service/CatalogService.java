@@ -9,10 +9,12 @@ import java.util.List;
 public interface CatalogService {
 
     List<Catalog> getAllCatalogs();
-    List<Catalog> getSubdirectoriesById(int id);
-    void createCatalog(String title, Catalog catalog);
-    void updateCatalog(Catalog catalog);
-    void deleteCatalog(Catalog catalog);
-    void createCatalogInCatalog(String title, Catalog catalog);
+    List<Catalog> getSubdirectoriesById(Integer id);
+    void createCatalog(String title, Integer catalogId);
+    void updateCatalog(Integer catalogId);
+    void deleteCatalog(Integer catalogId);
+    void createCatalogInCatalog(String title, Integer catalogId);
+    Catalog getCatalogById(Integer id);
+    Catalog findCatalogByTitle(String title);
 
 }

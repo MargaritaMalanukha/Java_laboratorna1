@@ -7,6 +7,7 @@ import org.margomalanuha.spring.labs.models.pojo.Product;
 import org.margomalanuha.spring.labs.models.pojo.User;
 import org.margomalanuha.spring.labs.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @NoArgsConstructor
@@ -22,9 +23,17 @@ public class AdminController {
     @Autowired
     public void setUserService(UserService userService) { this.userService = userService; }
 
-    public void createProduct(String title, double price, Catalog catalog) { productsService.createProduct(title, price, catalog); }
+    public void createProduct(String title, double price, int catalogId) { productsService.createProduct(title, price, catalogId); }
     public void deleteProduct(Product product) { productsService.deleteProduct(product); }
     public void updateProduct(Product product) { productsService.updateProduct(product); }
-    public void deactivateUser(User user) { userService.deactivateUser(user); }
+    public void deactivateUser(Integer userId) { userService.deactivateUser(userId); }
+
+    public void upgradeToAdmin(Integer userId) {
+        userService.upgradeToAdmin(userId);
+    }
+
+    public void downgradeToUser(Integer userId) {
+        userService.downgradeToUser(userId);
+    }
 
 }

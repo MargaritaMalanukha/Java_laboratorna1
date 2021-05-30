@@ -1,4 +1,4 @@
-package org.margomalanuha.spring.labs.controllers.exceptions;
+package org.margomalanuha.spring.labs.service.exceptions;
 
 public class LoginException extends RuntimeException {
 

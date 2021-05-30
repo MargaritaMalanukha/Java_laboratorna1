@@ -10,7 +10,9 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,8 +34,7 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     @Override
-    public List<Product> getProductsByCatalog(Catalog catalog) {
-        int catalogId = catalog.getId();
+    public List<Product> getProductsByCatalog(int catalogId) {
         return repository.findAll().stream().filter(e -> e.getCatalog().getId() == catalogId).collect(Collectors.toList());
     }
 
@@ -53,13 +54,15 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     @Override
-    public List<Product> filterByMaxPriceAndCatalog(double price, Catalog catalog) {
-        List<Product> list = getProductsByCatalog(catalog);
+    public List<Product> filterByMaxPriceAndCatalog(double price, int catalogId) {
+        List<Product> list = getProductsByCatalog(catalogId);
         return list.stream().filter(e -> e.getPrice() <= price).collect(Collectors.toList());
     }
 
     @Override
-    public void createProduct(String title, double price, Catalog catalog) {
+    public void createProduct(String title, double price, int catalogId) {
+        Catalog catalog = new Catalog();
+        catalog.setId(catalogId);
         repository.save(new Product(title, price, catalog));
     }
 
@@ -72,4 +75,13 @@ public class ProductsServiceImpl implements ProductsService {
     public void deleteProduct(Product product) {
         repository.delete(product);
     }
+
+    @Override
+    public Product findProductByTitle(String title) {
+        return repository.findAll().stream()
+                .filter(e -> e.getTitle().equalsIgnoreCase(title))
+                .findFirst().orElseThrow(NoSuchElementException::new);
+    }
+
+
 }

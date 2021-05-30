@@ -1,6 +1,8 @@
 package org.margomalanuha.spring.labs.models.pojo;
 
 import lombok.*;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,7 +27,8 @@ public class Product {
     private double price;
 
     @JoinColumn(name = "catalog_id", nullable = false)
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @NotFound(action = NotFoundAction.IGNORE)
     private Catalog catalog;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
@@ -35,6 +38,10 @@ public class Product {
         this.title = title;
         this.price = price;
         this.catalog = catalog;
+    }
+
+    public String toString() {
+        return "id=" + id + " title=" + title + " price=" + price;
     }
 
 }
