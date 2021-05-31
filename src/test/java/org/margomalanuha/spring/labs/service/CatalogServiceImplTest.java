@@ -11,8 +11,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
-/*@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class)
 public class CatalogServiceImplTest {
 
     private CatalogRepository repository;
@@ -45,21 +46,21 @@ public class CatalogServiceImplTest {
     @Test
     public void getSubdirectoriesById_whenCatalogsAreInDatabase_returnListOfSubdirectoriesOfCatalog() {
         //GIVEN
-        Catalog catalog = new Catalog(1, "milk products", 0);
+        Catalog catalog = new Catalog(1, "milk products", new Catalog());
         List<Catalog> catalogs = new LinkedList<>();
         catalogs.add(catalog);
-        catalogs.add(new Catalog(2, "cheeses", 1));
-        catalogs.add(new Catalog(3, "butters", 1));
-        catalogs.add(new Catalog(4, "fishes", 0));
+        catalogs.add(new Catalog(2, "cheeses", catalog));
+        catalogs.add(new Catalog(3, "butters", catalog));
+        catalogs.add(new Catalog(4, "fishes", new Catalog()));
         Mockito.doReturn(catalogs).when(repository).findAll();
 
+
         //WHEN
-        List<Catalog> actual = catalogService.getAllCatalogs();
+        List<Catalog> actual = catalogService.getSubdirectoriesById(1);
 
         //THEN
         Mockito.verify(repository, Mockito.times(1)).findAll();
-        catalogs.remove(3);
-        catalogs.remove(0);
+        catalogs.remove(2);
         Assertions.assertEquals(catalogs, actual);
     }
 
@@ -67,22 +68,27 @@ public class CatalogServiceImplTest {
     public void createCatalog_whenDataIsCorrect_createNewCatalog() {
         //GIVEN
         String title = "milk products";
-        int upperCatalogId = 0;
+        int upperCatalogId = 12;
+        Catalog catalog = new Catalog();
+        catalog.setId(upperCatalogId);
 
         //WHEN
         catalogService.createCatalog(title, upperCatalogId);
 
         //THEN
-        Mockito.verify(repository, Mockito.times(1)).save(new Catalog(title, upperCatalogId));
+        Mockito.verify(repository, Mockito.times(1)).save(new Catalog(title, catalog));
     }
 
     @Test
     public void updateCatalog_whenDataIsCorrect_updateCatalog() {
         //GIVEN
-        Catalog catalog = new Catalog("milk products", 0);
+        int id = 10;
+        Catalog catalog = new Catalog();
+        catalog.setId(id);
+        Mockito.doReturn(catalog).when(repository).save(catalog);
 
         //WHEN
-        catalogService.updateCatalog(catalog);
+        catalogService.updateCatalog(id);
 
         //THEN
         Mockito.verify(repository, Mockito.times(1)).save(catalog);
@@ -95,7 +101,7 @@ public class CatalogServiceImplTest {
         catalog.setId(1);
 
         //WHEN
-        catalogService.deleteCatalog(catalog);
+        catalogService.deleteCatalog(catalog.getId());
 
         //THEN
         Mockito.verify(repository, Mockito.times(1)).delete(catalog);
@@ -105,14 +111,49 @@ public class CatalogServiceImplTest {
     public void createCatalogInCatalog_whenCatalogExists_createNewSubCatalog() {
         //GIVEN
         String title = "cheeses";
-        Catalog catalog = new Catalog(1, "milk products", 0);
+        Catalog catalog = new Catalog();
+        catalog.setId(1);
 
         //WHEN
         catalogService.createCatalog(title, catalog.getId());
 
         //THEN
-        Mockito.verify(repository, Mockito.times(1)).save(new Catalog(title, catalog.getId()));
+        Mockito.verify(repository, Mockito.times(1)).save(new Catalog(title, catalog));
+    }
+
+    @Test
+    public void getCatalogById_whenCatalogExists_returnCatalog() {
+        //GIVEN
+        int catalogId = 12;
+        Catalog catalog = new Catalog("milk", new Catalog());
+        catalog.setId(catalogId);
+        Mockito.doReturn(Optional.of(catalog)).when(repository).findById(catalogId);
+
+        //WHEN
+        Catalog actual = catalogService.getCatalogById(catalogId);
+
+        //THEN
+        Mockito.verify(repository, Mockito.times(1)).findById(catalogId);
+        Assertions.assertEquals(catalog, actual);
+    }
+
+    @Test
+    public void findCatalogByTitle_whenCatalogExistsAndTitleIsCorrect_returnCatalog() {
+        //GIVEN
+        String title = "milk product";
+        List<Catalog> catalogs = new LinkedList<>();
+        catalogs.add(new Catalog("milk", new Catalog()));
+        catalogs.add(new Catalog(title, new Catalog()));
+        catalogs.add(new Catalog(title, new Catalog("milk", new Catalog())));
+        Mockito.doReturn(catalogs).when(repository).findAll();
+
+        //WHEN
+        Catalog catalog = catalogService.findCatalogByTitle(title);
+
+        //THEN
+        Mockito.verify(repository, Mockito.times(1)).findAll();
+        Assertions.assertEquals(catalogs.get(1), catalog);
     }
 
 
-}*/
+}

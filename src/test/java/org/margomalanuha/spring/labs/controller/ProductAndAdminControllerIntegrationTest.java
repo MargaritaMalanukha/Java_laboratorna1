@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration( loader = AnnotationConfigWebContextLoader.class, classes = {Config.class})
-@Transactional
+@Transactional //todo
 public class ProductAndAdminControllerIntegrationTest {
 
   /*  private static ApplicationContext context;

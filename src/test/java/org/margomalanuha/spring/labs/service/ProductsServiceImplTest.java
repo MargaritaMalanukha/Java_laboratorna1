@@ -17,7 +17,7 @@ import java.util.Optional;
 @ExtendWith(MockitoExtension.class)
 public class ProductsServiceImplTest {
 
-   /* private ProductRepository repository;
+    private ProductRepository repository;
     private ProductsServiceImpl productsService;
 
     @Before
@@ -30,8 +30,12 @@ public class ProductsServiceImplTest {
     public void getAllProducts_whenProductsAreInDatabase_ReturnProducts() {
         //Given
         List<Product> products = new LinkedList<>();
-        products.add(new Product("milk", 25, 1));
-        products.add(new Product("coffee", 100, 2));
+        Catalog catalog = new Catalog();
+        catalog.setId(1);
+        products.add(new Product("milk", 25, catalog));
+        catalog = new Catalog();
+        catalog.setId(2);
+        products.add(new Product("coffee", 100, catalog));
         Mockito.doReturn(products).when(repository).findAll();
 
         //When
@@ -46,14 +50,17 @@ public class ProductsServiceImplTest {
     public void getProductsByCatalog_whenCatalogExistsAndHasProducts_ReturnProducts() {
         //GIVEN
         List<Product> products = new LinkedList<>();
-        products.add(new Product("milk", 25, 1));
-        products.add(new Product("kefir", 30, 1));
-        products.add(new Product("tea", 20, 2));
+        Catalog catalog = new Catalog();
+        catalog.setId(1);
+        products.add(new Product("milk", 25, catalog));
+        products.add(new Product("kefir", 30, catalog));
+        Catalog catalog2 = new Catalog();
+        catalog2.setId(2);
+        products.add(new Product("tea", 20, catalog2));
         Mockito.doReturn(products).when(repository).findAll();
-        Catalog catalog = new Catalog(1, "milk products", 0);
 
         //WHEN
-        List<Product> actual = productsService.getProductsByCatalog(catalog);
+        List<Product> actual = productsService.getProductsByCatalog(1);
 
         //THEN
         Mockito.verify(repository, Mockito.times(1)).findAll();
@@ -66,7 +73,10 @@ public class ProductsServiceImplTest {
     public void getProductsById_whenProductIsInDatabase_ReturnProduct() {
         //GIVEN
         int productId = 10;
-        Product product = new Product(productId,"milk", 25, 1);
+        Catalog catalog = new Catalog();
+        catalog.setId(1);
+        Product product = new Product("milk", 25, catalog);
+        product.setId(productId);
         Optional<Product> optionalProduct = Optional.of(product);
         Mockito.doReturn(optionalProduct).when(repository).findById(productId);
 
@@ -83,9 +93,11 @@ public class ProductsServiceImplTest {
         //GIVEN
         String title = "milk";
         List<Product> products = new LinkedList<>();
-        products.add(new Product("milk", 25, 1));
-        products.add(new Product("kefir", 30, 1));
-        products.add(new Product("milk 1.5%", 35, 1));
+        Catalog catalog = new Catalog();
+        catalog.setId(1);
+        products.add(new Product("milk", 25, catalog));
+        products.add(new Product("kefir", 30, catalog));
+        products.add(new Product("milk 1.5%", 35, catalog));
         Mockito.doReturn(products).when(repository).findAll();
 
         //WHEN
@@ -103,10 +115,14 @@ public class ProductsServiceImplTest {
         //GIVEN
         double price = 50.0;
         List<Product> products = new LinkedList<>();
-        products.add(new Product("salmon", 100,3));
-        products.add(new Product("milk", 25, 1));
-        products.add(new Product("ice cream", 50, 4));
-        products.add(new Product("candies", 47, 4));
+        Catalog catalog = new Catalog();
+        catalog.setId(1);
+        Catalog catalog2 = new Catalog();
+        catalog.setId(3);
+        products.add(new Product("salmon", 100, catalog));
+        products.add(new Product("milk", 25, catalog2));
+        products.add(new Product("ice cream", 50, catalog2));
+        products.add(new Product("candies", 47, catalog));
         Mockito.doReturn(products).when(repository).findAll();
 
         //WHEN
@@ -123,16 +139,20 @@ public class ProductsServiceImplTest {
     public void filterByMaxPriceAndCatalog_whenProductsAreInDatabaseAndCatalogExists_ReturnProducts() {
         //GIVEN
         double price = 50.0;
-        Catalog catalog = new Catalog(1, "milk products", 0);
+        Catalog primary = new Catalog();
+        primary.setId(1);
+        Catalog catalog = new Catalog(2, "milk products", primary);
+        Catalog another = new Catalog();
+        another.setId(3);
         List<Product> products = new LinkedList<>();
-        products.add(new Product("salmon", 100,3));
-        products.add(new Product("milk", 25, 1));
-        products.add(new Product("milk 2l", 60, 1));
-        products.add(new Product("candies", 47, 4));
+        products.add(new Product("salmon", 100,another));
+        products.add(new Product("milk", 25, catalog));
+        products.add(new Product("milk 2l", 60, catalog));
+        products.add(new Product("candies", 47, another));
         Mockito.doReturn(products).when(repository).findAll();
 
         //WHEN
-        List<Product> actual = productsService.filterByMaxPriceAndCatalog(price, catalog);
+        List<Product> actual = productsService.filterByMaxPriceAndCatalog(price, catalog.getId());
 
         //THEN
         Mockito.verify(repository, Mockito.times(1)).findAll();
@@ -149,11 +169,11 @@ public class ProductsServiceImplTest {
         String title = "milk";
         Catalog catalog = new Catalog();
         catalog.setId(1);
-        Product product = new Product(title, price, catalog.getId());
+        Product product = new Product(title, price, catalog);
         Mockito.doReturn(product).when(repository).save(product);
 
         //WHEN
-        productsService.createProduct(title, price, catalog);
+        productsService.createProduct(title, price, catalog.getId());
 
         //THEN
         Mockito.verify(repository, Mockito.times(1)).save(product);
@@ -162,7 +182,9 @@ public class ProductsServiceImplTest {
     @Test
     public void updateProduct_whenDataIsCorrect_updateProductInDatabase() {
         //GIVEN
-        Product product = new Product(12, "milk", 25, 1);
+        Catalog catalog = new Catalog();
+        catalog.setId(1);
+        Product product = new Product("milk", 25, catalog);
         Mockito.doReturn(product).when(repository).save(product);
 
         //WHEN
@@ -176,7 +198,7 @@ public class ProductsServiceImplTest {
     @Test
     public void deleteProduct_whenProductIsInDatabase_deleteProduct() {
         //GIVEN
-        Product product = new Product(12, "milk", 25, 1);
+        Product product = new Product("milk", 25, new Catalog());
         Mockito.doNothing().when(repository).delete(product);
 
         //WHEN
@@ -185,7 +207,24 @@ public class ProductsServiceImplTest {
         //THEN
         Mockito.verify(repository, Mockito.times(1)).delete(product);
 
-    }*/
+    }
+
+    @Test
+    public void findProductByTitle_whenProductExists_returnFirstSuchProductFromDatabase() {
+        //GIVEN
+        List<Product> products = new LinkedList<>();
+        products.add(new Product("Milk", 25, new Catalog()));
+        products.add(new Product("soda", 12, new Catalog()));
+        products.add(new Product("milk", 30, new Catalog()));
+        Mockito.doReturn(products).when(repository).findAll();
+
+        //WHEN
+        Product product = productsService.findProductByTitle("milk");
+
+        //THEN
+        Mockito.verify(repository, Mockito.times(1)).findAll();
+        Assertions.assertEquals(products.get(0), product);
+    }
 
 
 

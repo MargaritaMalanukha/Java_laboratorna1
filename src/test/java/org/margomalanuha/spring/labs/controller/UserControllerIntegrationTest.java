@@ -24,7 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
+@DataJpaTest //todo
 public class UserControllerIntegrationTest {
 
     private static ApplicationContext context;

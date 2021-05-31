@@ -56,5 +56,4 @@ public class User {
         this.userType = userType;
         isActive = true;
     }
-
 }
