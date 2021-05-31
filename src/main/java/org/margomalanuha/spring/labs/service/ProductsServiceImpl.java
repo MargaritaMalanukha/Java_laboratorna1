@@ -72,8 +72,8 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     @Override
-    public void deleteProduct(Product product) {
-        repository.delete(product);
+    public void deleteProduct(Integer integer) {
+        repository.delete(repository.findById(integer).orElseThrow(NoSuchElementException::new));
     }
 
     @Override

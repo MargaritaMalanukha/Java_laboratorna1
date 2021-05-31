@@ -17,13 +17,14 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
+import org.margomalanuha.spring.labs.controllers.Session;
 import org.margomalanuha.spring.labs.controllers.UserController;
 import org.margomalanuha.spring.labs.models.pojo.User;
+import org.margomalanuha.spring.labs.service.UserService;
 import org.margomalanuha.spring.labs.ui.AuthMainView;
 import org.margomalanuha.spring.labs.ui.MainView;
 
 @Route(value = "login", layout = AuthMainView.class)
-@RouteAlias(value = "", layout = AuthMainView.class)
 @PageTitle("Login")
 public class LoginView extends VerticalLayout {
 
@@ -33,7 +34,8 @@ public class LoginView extends VerticalLayout {
     private Button login = new Button("Login");
     private Button register = new Button("Go To Registration");
 
-    public LoginView(UserController userController) {
+    public LoginView(UserService userService) {
+        Session.user = new User();
         addClassName("register-view");
 
         add(createTitle());
@@ -45,7 +47,7 @@ public class LoginView extends VerticalLayout {
 
         register.addClickListener(e -> UI.getCurrent().navigate("register"));
         login.addClickListener(e -> {
-            userController.login(email.getValue(), password.getValue());
+            userService.login(email.getValue(), password.getValue());
             clearForm();
             UI.getCurrent().navigate("products");
         });

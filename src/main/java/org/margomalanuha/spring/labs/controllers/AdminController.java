@@ -7,12 +7,12 @@ import org.margomalanuha.spring.labs.models.pojo.Product;
 import org.margomalanuha.spring.labs.models.pojo.User;
 import org.margomalanuha.spring.labs.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @NoArgsConstructor
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api/admin")
 public class AdminController {
 
     private ProductsService productsService;
@@ -23,16 +23,16 @@ public class AdminController {
     @Autowired
     public void setUserService(UserService userService) { this.userService = userService; }
 
-    public void createProduct(String title, double price, int catalogId) { productsService.createProduct(title, price, catalogId); }
-    public void deleteProduct(Product product) { productsService.deleteProduct(product); }
-    public void updateProduct(Product product) { productsService.updateProduct(product); }
-    public void deactivateUser(Integer userId) { userService.deactivateUser(userId); }
+    @PostMapping("/deactivate")
+    public void deactivateUser(@RequestParam Integer userId) { userService.deactivateUser(userId); }
 
-    public void upgradeToAdmin(Integer userId) {
+    @PostMapping("/upgrade")
+    public void upgradeToAdmin(@RequestParam Integer userId) {
         userService.upgradeToAdmin(userId);
     }
 
-    public void downgradeToUser(Integer userId) {
+    @PostMapping("/downgrade")
+    public void downgradeToUser(@RequestParam Integer userId) {
         userService.downgradeToUser(userId);
     }
 

@@ -15,15 +15,18 @@ import org.margomalanuha.spring.labs.controllers.ProductController;
 import org.margomalanuha.spring.labs.controllers.Session;
 import org.margomalanuha.spring.labs.models.pojo.Catalog;
 import org.margomalanuha.spring.labs.models.pojo.Product;
+import org.margomalanuha.spring.labs.service.CatalogService;
+import org.margomalanuha.spring.labs.service.ProductsService;
+import org.margomalanuha.spring.labs.service.PurchaseService;
 import org.margomalanuha.spring.labs.ui.MainView;
 
 @Route(value = "catalogs", layout = MainView.class)
 @PageTitle("Catalogs")
 public class CatalogsView extends HorizontalLayout implements HasUrlParameter<Integer> {
 
-    private CatalogController catalogController;
-    private ProductController productController;
-    private BasketController basketController;
+    private CatalogService catalogService;
+    private ProductsService productsService;
+    private PurchaseService purchaseService;
 
     private int currentCatalogId;
     private ListDataProvider<Catalog> catalogListDataProvider;
@@ -37,10 +40,10 @@ public class CatalogsView extends HorizontalLayout implements HasUrlParameter<In
     private Grid.Column <Product> titleProductColumn;
     private Grid.Column <Product> priceProductColumn;
 
-    public CatalogsView(CatalogController catalogController, ProductController productController, BasketController basketController) {
-        this.catalogController = catalogController;
-        this.productController = productController;
-        this.basketController = basketController;
+    public CatalogsView(CatalogService catalogService, ProductsService productsService, PurchaseService purchaseService) {
+        this.catalogService = catalogService;
+        this.purchaseService = purchaseService;
+        this.productsService = productsService;
     }
 
     @Override
@@ -60,7 +63,7 @@ public class CatalogsView extends HorizontalLayout implements HasUrlParameter<In
     private VerticalLayout createSubcatalogsVerticalLayout() {
         VerticalLayout catalogLayout = new VerticalLayout();
         catalogLayout.setWidth("40%");
-        String title = catalogController.getCatalogById(currentCatalogId).getTitle();
+        String title = catalogService.getCatalogById(currentCatalogId).getTitle();
         catalogLayout.add(new H3("Subcatalogs in catalog '" + title + "' : "));
         createCatalogGrid();
         catalogLayout.add(catalogGrid);
@@ -72,7 +75,7 @@ public class CatalogsView extends HorizontalLayout implements HasUrlParameter<In
         catalogGrid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_COLUMN_BORDERS);
         catalogGrid.setHeight("100%");
 
-        catalogListDataProvider = new ListDataProvider<>(catalogController.getSubdirectoriesById(currentCatalogId));
+        catalogListDataProvider = new ListDataProvider<>(catalogService.getSubdirectoriesById(currentCatalogId));
         catalogGrid.setDataProvider(catalogListDataProvider);
 
         titleCatalogColumn = catalogGrid.addColumn(Catalog::getTitle, "id").setHeader("TITLE").setWidth("150px").setFlexGrow(0);
@@ -100,7 +103,7 @@ public class CatalogsView extends HorizontalLayout implements HasUrlParameter<In
         productGrid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_COLUMN_BORDERS);
         productGrid.setHeight("100%");
 
-        productListDataProvider = new ListDataProvider<>(productController.getProductsByCatalog(currentCatalogId));
+        productListDataProvider = new ListDataProvider<>(productsService.getProductsByCatalog(currentCatalogId));
         productGrid.setDataProvider(productListDataProvider);
 
         idProductColumn = productGrid.addColumn(Product::getId, "id").setHeader("ID").setWidth("70px").setFlexGrow(0);
@@ -112,7 +115,7 @@ public class CatalogsView extends HorizontalLayout implements HasUrlParameter<In
 
     private Button createAddToBasketButton(Product product) {
         return new Button("Add To Basket", buttonClickEvent -> {
-            basketController.addToBasket(product.getId(), Session.user.getId());
+            purchaseService.addToBasket(product.getId(), Session.user.getId());
         });
     }
 

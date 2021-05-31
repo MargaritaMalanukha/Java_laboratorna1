@@ -20,7 +20,7 @@ public interface ProductsService {
 
     void createProduct(String title, double price, int catalogId);
     void updateProduct(Product product);
-    void deleteProduct(Product product);
+    void deleteProduct(Integer productId);
     Product findProductByTitle(String title);
 
 }

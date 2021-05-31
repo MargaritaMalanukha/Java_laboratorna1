@@ -7,15 +7,16 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.margomalanuha.spring.labs.controllers.BasketController;
 import org.margomalanuha.spring.labs.models.pojo.Purchase;
+import org.margomalanuha.spring.labs.service.PurchaseService;
 import org.margomalanuha.spring.labs.ui.MainView;
 
 @Route(value = "admin-notifications", layout = MainView.class)
-@PageTitle("Admin Panel")
+@PageTitle("Admin Notifications")
 public class AdminNotificationsView extends VerticalLayout {
 
     private Grid<Purchase> grid = new Grid<>();
 
-    public AdminNotificationsView(BasketController basketController) {
+    public AdminNotificationsView(PurchaseService purchaseService) {
         addClassName("admin-notifications-view");
         setSizeFull();
         grid.setHeight("100%");

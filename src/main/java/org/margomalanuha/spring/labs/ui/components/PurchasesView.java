@@ -12,6 +12,7 @@ import com.vaadin.flow.router.Route;
 import org.margomalanuha.spring.labs.controllers.BasketController;
 import org.margomalanuha.spring.labs.controllers.Session;
 import org.margomalanuha.spring.labs.models.pojo.Purchase;
+import org.margomalanuha.spring.labs.service.PurchaseService;
 import org.margomalanuha.spring.labs.ui.MainView;
 
 @Route(value = "purchases", layout = MainView.class)
@@ -21,10 +22,10 @@ public class PurchasesView extends VerticalLayout {
     private Grid<Purchase> grid;
     private ListDataProvider<Purchase> dataProvider;
 
-    private BasketController basketController;
+    private PurchaseService purchaseService;
 
-    public PurchasesView(BasketController basketController) {
-        this.basketController = basketController;
+    public PurchasesView(PurchaseService purchaseService) {
+        this.purchaseService = purchaseService;
 
         addClassName("purchases-view");
         setSizeFull();
@@ -39,7 +40,7 @@ public class PurchasesView extends VerticalLayout {
         grid.setHeight("100%");
         grid.setWidth("70%");
 
-        dataProvider = new ListDataProvider<>(basketController.getPurchaseHistory(Session.user.getId()));
+        dataProvider = new ListDataProvider<>(purchaseService.getPurchaseHistory(Session.user.getId()));
         grid.setDataProvider(dataProvider);
 
         grid.addColumn(Purchase::getId, "id").setHeader("ID").setWidth("70px").setFlexGrow(0);

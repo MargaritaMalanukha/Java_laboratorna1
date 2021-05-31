@@ -81,10 +81,6 @@ public class MainView extends AppLayout {
         tabs.addThemeVariants(TabsVariant.LUMO_MINIMAL);
         tabs.setId("tabs");
         tabs.add(createMenuItems());
-        tabs.add(new Button("LOGOUT", buttonClickEvent -> {
-            Session.user = new User();
-            UI.getCurrent().navigate("login");
-        }));
         return tabs;
     }
 
@@ -95,12 +91,14 @@ public class MainView extends AppLayout {
                     createTab("Basket", BasketView.class),
                     createTab("My Purchases", PurchasesView.class),
                     createTab("Admin Panel", AdminView.class),
-                    createTab("Admin Notifications", AdminNotificationsView.class)};
+                    createTab("Admin Notifications", AdminNotificationsView.class),
+                    createTab("Logout", LoginView.class)};
         }
         return new Tab[] { createTab("All Products", ProductsView.class),
                 createTab("Catalogs", CatalogsView.class),
                 createTab("Basket", BasketView.class),
-                createTab("My Purchases", PurchasesView.class)};
+                createTab("My Purchases", PurchasesView.class),
+                createTab("Logout", LoginView.class)};
     }
 
     private static Tab createTab(String text, Class<? extends com.vaadin.flow.component.Component> navigationTarget) {

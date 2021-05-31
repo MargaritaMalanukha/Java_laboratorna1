@@ -14,6 +14,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @RestController
+@RequestMapping("/api/products")
 public class ProductController {
 
     private ProductsService productsService;
@@ -23,7 +24,8 @@ public class ProductController {
         this.productsService = productsService;
     }
 
-    public List<Product> getProductsByCatalog(Integer catalogId) {
+    @GetMapping("/catalog/{catalogId}")
+    public List<Product> getProductsByCatalog(@PathVariable Integer catalogId) {
         List<Product> products;
         try {
             products = productsService.getProductsByCatalog(catalogId);
@@ -33,16 +35,32 @@ public class ProductController {
         return products;
     }
 
+    @GetMapping
     public List<Product> getAllProducts() {
         return productsService.getAllProducts();
     }
 
-    public Product getProductById(Integer id) {
+    @GetMapping("/{id}")
+    public Product getProductById(@PathVariable Integer id) {
         return productsService.getProductById(id);
     }
 
-    public Product getProductByTitle(String title) {
+    @GetMapping("/title/{title}")
+    public Product getProductByTitle(@PathVariable String title) {
         return productsService.findProductByTitle(title);
     }
+
+    @PostMapping
+    public void createProduct(@RequestParam String title,
+                              @RequestParam double price,
+                              @RequestParam int catalogId) {
+        productsService.createProduct(title, price, catalogId);
+    }
+
+    @DeleteMapping("/{productId}")
+    public void deleteProduct(@PathVariable Integer productId) { productsService.deleteProduct(productId); }
+
+    @PutMapping
+    public void updateProduct(@RequestBody Product product) { productsService.updateProduct(product); }
 
 }

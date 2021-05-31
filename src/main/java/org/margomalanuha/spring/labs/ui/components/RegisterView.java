@@ -39,7 +39,7 @@ public class RegisterView extends VerticalLayout {
 
     private Binder<User> binder = new Binder(User.class);
 
-    public RegisterView(UserController userController) {
+    public RegisterView(UserService userService) {
         addClassName("register-view");
 
         add(createTitle());
@@ -51,7 +51,7 @@ public class RegisterView extends VerticalLayout {
 
         login.addClickListener(e -> UI.getCurrent().navigate("login"));
         register.addClickListener(e -> {
-            userController.login(email.getValue(), password.getValue());
+            userService.login(email.getValue(), password.getValue());
             clearForm();
             UI.getCurrent().navigate("products");
         });

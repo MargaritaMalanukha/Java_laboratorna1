@@ -17,6 +17,8 @@ import org.margomalanuha.spring.labs.controllers.ProductController;
 import org.margomalanuha.spring.labs.controllers.Session;
 import org.margomalanuha.spring.labs.models.pojo.BasketItem;
 import org.margomalanuha.spring.labs.models.pojo.Product;
+import org.margomalanuha.spring.labs.service.ProductsService;
+import org.margomalanuha.spring.labs.service.PurchaseService;
 import org.margomalanuha.spring.labs.ui.MainView;
 
 @Route(value = "basket", layout = MainView.class)
@@ -25,16 +27,14 @@ public class BasketView extends Div {
 
     private Grid<Product> grid;
     private ListDataProvider<Product> dataProvider;
-    private ProductController productController;
-    private BasketController basketController;
+    private PurchaseService purchaseService;
 
     private Grid.Column<Product> idColumn;
     private Grid.Column<Product> titleColumn;
     private Grid.Column<Product> priceColumn;
 
-    public BasketView(ProductController productController, BasketController basketController) {
-        this.productController = productController;
-        this.basketController = basketController;
+    public BasketView(PurchaseService purchaseService) {
+        this.purchaseService = purchaseService;
 
         addClassName("basket-view");
         setSizeFull();
@@ -53,13 +53,13 @@ public class BasketView extends Div {
         grid = new Grid<>();
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_COLUMN_BORDERS);
 
-        dataProvider = new ListDataProvider<>(basketController.getBasket(Session.user.getId()));
+        dataProvider = new ListDataProvider<>(purchaseService.getBasket(Session.user.getId()));
         grid.setDataProvider(dataProvider);
     }
 
     private Button createDeleteFromBasketButton(Product product, Grid<Product> grid) {
         return new Button("Delete", buttonClickEvent -> {
-            basketController.deleteFromBasket(product.getId(), Session.user.getId());
+            purchaseService.deleteFromBasket(product.getId(), Session.user.getId());
             grid.getDataProvider().refreshAll();
         });
     }

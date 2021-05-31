@@ -1,5 +1,6 @@
 package org.margomalanuha.spring.labs.models.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -27,6 +28,7 @@ public class Product {
     private double price;
 
     @JoinColumn(name = "catalog_id", nullable = false)
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @NotFound(action = NotFoundAction.IGNORE)
     private Catalog catalog;

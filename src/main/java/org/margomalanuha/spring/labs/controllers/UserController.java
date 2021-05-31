@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 @NoArgsConstructor
 @RestController
 @Getter
+@RequestMapping("api/auth")
 public class UserController {
 
     private UserService userService;
@@ -24,30 +25,36 @@ public class UserController {
         this.userService = userService;
     }
 
-
-    public void register(User user) {
+    @PostMapping("/register")
+    public void register(@RequestBody User user) {
         userService.register(user);
     }
 
-    public User login(String email, String password) {
+    @PostMapping("/login")
+    public User login(@RequestParam String email, @RequestParam String password) {
         return userService.login(email, password);
     }
 
-    public void updateData(User user) {
+    @PostMapping("/update")
+    public void updateData(@RequestBody User user) {
         userService.updateData(user);
     }
 
+    @GetMapping("/users")
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    public List<User> getUsersByTitle(String title) {
+    @GetMapping("/users/title/{title}")
+    public List<User> getUsersByTitle(@PathVariable String title) {
         return userService.getUsersByTitle(title);
     }
 
-    public boolean isMainAdmin(User user) {
+    @PostMapping("/is_main_admin")
+    public boolean isMainAdmin(@RequestBody User user) {
         return userService.isMainAdmin(user);
     }
 
-    public boolean isAdmin(User user) { return userService.isAdmin(user);}
+    @PostMapping("/is_admin")
+    public boolean isAdmin(@RequestBody User user) { return userService.isAdmin(user);}
 }

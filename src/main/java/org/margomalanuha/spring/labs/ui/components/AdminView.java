@@ -18,6 +18,9 @@ import com.vaadin.flow.router.Route;
 import org.margomalanuha.spring.labs.controllers.*;
 import org.margomalanuha.spring.labs.models.pojo.Product;
 import org.margomalanuha.spring.labs.models.pojo.User;
+import org.margomalanuha.spring.labs.service.CatalogService;
+import org.margomalanuha.spring.labs.service.ProductsService;
+import org.margomalanuha.spring.labs.service.UserService;
 import org.margomalanuha.spring.labs.ui.MainView;
 
 @Route(value = "admin", layout = MainView.class)
@@ -32,10 +35,9 @@ public class AdminView extends HorizontalLayout {
     private FormLayout productUpdateLayout;
     private FormLayout catalogUpdateLayout;
 
-    private final AdminController adminController;
-    private final UserController userController;
-    private final ProductController productController;
-    private final CatalogController catalogController;
+    private final UserService userService;
+    private final ProductsService productsService;
+    private final CatalogService catalogService;
 
     private TextField catalogProductCreationColumn = new TextField("Catalog Title");
     private TextField titleProductCreationColumn = new TextField("Title");
@@ -44,12 +46,10 @@ public class AdminView extends HorizontalLayout {
     private TextField catalogCatalogCreationColumn = new TextField("Upper Catalog Title");
     private TextField titleCatalogCreationColumn = new TextField("Title");
 
-    public AdminView(AdminController adminController, UserController userController, ProductController productController,
-                     CatalogController catalogController) {
-        this.adminController = adminController;
-        this.userController = userController;
-        this.productController = productController;
-        this.catalogController = catalogController;
+    public AdminView(UserService userService, ProductsService productsService, CatalogService catalogService) {
+        this.userService = userService;
+        this.productsService = productsService;
+        this.catalogService = catalogService;
 
         addClassName("admin-view");
         setHeightFull();
@@ -90,8 +90,8 @@ public class AdminView extends HorizontalLayout {
         buttonLayout.addClassName("create-product-button-layout");
         Button button = new Button("SAVE", buttonClickEvent -> {
             try {
-                adminController.createProduct(titleProductCreationColumn.getValue(), Double.parseDouble(priceProductCreationColumn.getValue()),
-                        productController.getProductByTitle(catalogProductCreationColumn.getValue()).getId());
+                productsService.createProduct(titleProductCreationColumn.getValue(), Double.parseDouble(priceProductCreationColumn.getValue()),
+                        productsService.findProductByTitle(catalogProductCreationColumn.getValue()).getId());
                 titleCatalogCreationColumn.setValue("");
                 priceProductCreationColumn.setValue("");
                 catalogProductCreationColumn.setValue("");
@@ -109,8 +109,8 @@ public class AdminView extends HorizontalLayout {
         buttonLayout.addClassName("create-catalog-button-layout");
         Button button = new Button("SAVE", buttonClickEvent -> {
             try {
-                catalogController.createCatalog(titleCatalogCreationColumn.getValue(),
-                        catalogController.findCatalogByTitle(catalogCatalogCreationColumn.getValue()).getId());
+                catalogService.createCatalog(titleCatalogCreationColumn.getValue(),
+                        catalogService.findCatalogByTitle(catalogCatalogCreationColumn.getValue()).getId());
             } catch (Exception e) {
                 Notification.show("Wrong data entered. Please, check your input.");
             }
@@ -124,7 +124,7 @@ public class AdminView extends HorizontalLayout {
         userGrid = new Grid<>();
         userGrid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_COLUMN_BORDERS);
 
-        userDataProvider = new ListDataProvider<>(userController.getUsersByTitle("User"));
+        userDataProvider = new ListDataProvider<>(userService.getUsersByTitle("User"));
         userGrid.setDataProvider(userDataProvider);
 
         userGrid.addColumn(User::getId, "id").setHeader("ID").setWidth("70px").setFlexGrow(0);
@@ -133,24 +133,24 @@ public class AdminView extends HorizontalLayout {
         userGrid.addColumn(User::getEmail).setHeader("EMAIL").setWidth("200px");
 
         userGrid.addComponentColumn(item -> createDeactivateUserButton(item.getId())).setHeader("DEACTIVATION").setWidth("170px");
-        if (userController.isMainAdmin(Session.user)) {
+        if (userService.isMainAdmin(Session.user)) {
             userGrid.addComponentColumn(item -> createUpgradeToAdminButton(item.getId())).setHeader("UPGRADE TO ADMIN").setWidth("200px");
         }
     }
 
     private Button createUpgradeToAdminButton(Integer id) {
-        return new Button("Promote to admin", buttonClickEvent -> adminController.upgradeToAdmin(id));
+        return new Button("Promote to admin", buttonClickEvent -> userService.upgradeToAdmin(id));
     }
 
     private Button createDeactivateUserButton(Integer id) {
-        return new Button("Deactivate", buttonClickEvent -> adminController.deactivateUser(id));
+        return new Button("Deactivate", buttonClickEvent -> userService.deactivateUser(id));
     }
 
     private void createAdminGrid() {
         adminGrid = new Grid<>();
         adminGrid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_COLUMN_BORDERS);
 
-        adminDataProvider = new ListDataProvider<>(userController.getUsersByTitle("Admin"));
+        adminDataProvider = new ListDataProvider<>(userService.getUsersByTitle("Admin"));
         adminGrid.setDataProvider(adminDataProvider);
 
         adminGrid.addColumn(User::getId, "id").setHeader("ID").setWidth("70px").setFlexGrow(0);
@@ -158,13 +158,13 @@ public class AdminView extends HorizontalLayout {
         adminGrid.addColumn(User::getSurname).setHeader("SURNAME").setWidth("100px");
         adminGrid.addColumn(User::getEmail).setHeader("EMAIL").setWidth("200px");
 
-        if (userController.isMainAdmin(Session.user)) {
+        if (userService.isMainAdmin(Session.user)) {
             adminGrid.addComponentColumn(item -> createDowngradeToUser(item.getId())).setHeader("DOWNGRADE TO USER").setWidth("200px");
         }
     }
 
     private Button createDowngradeToUser(Integer id) {
-        return new Button("Downgrade To User", buttonClickEvent -> adminController.downgradeToUser(id));
+        return new Button("Downgrade To User", buttonClickEvent -> userService.downgradeToUser(id));
     }
 
 }

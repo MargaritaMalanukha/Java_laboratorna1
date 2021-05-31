@@ -19,6 +19,8 @@ import org.margomalanuha.spring.labs.controllers.Session;
 import org.margomalanuha.spring.labs.controllers.UserController;
 import org.margomalanuha.spring.labs.models.pojo.Purchase;
 import org.margomalanuha.spring.labs.models.pojo.User;
+import org.margomalanuha.spring.labs.service.PurchaseService;
+import org.margomalanuha.spring.labs.service.UserService;
 import org.margomalanuha.spring.labs.ui.MainView;
 
 @Route(value = "basket/checkout", layout = MainView.class)
@@ -35,7 +37,7 @@ public class CheckoutView extends VerticalLayout {
 
     private User user;
 
-    public CheckoutView(UserController userController, BasketController basketController) {
+    public CheckoutView(UserService userService, PurchaseService purchaseService) {
         addClassName("checkout-view");
         setHeightFull();
         user = Session.user;
@@ -48,9 +50,9 @@ public class CheckoutView extends VerticalLayout {
         buy.addClickListener(e -> {
             user.setMobile_phone(mobilePhone.getValue());
             user.setAddress(address.getValue());
-            userController.updateData(user);
-            Purchase purchase = basketController.addPurchaseToHistory(user.getId());
-            basketController.clearBasket(user.getId());
+            userService.updateData(user);
+            Purchase purchase = purchaseService.addPurchaseToHistory(user.getId());
+            purchaseService.clearBasket(user.getId());
             UI.getCurrent().navigate("products");
             Notification.show("Your purchase has been completed! Our manager will contact you in 5 minutes!");
             Notification.show("Your cheque is: " + purchase.getCheque());

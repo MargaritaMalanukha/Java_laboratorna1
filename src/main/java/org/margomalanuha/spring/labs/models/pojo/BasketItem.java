@@ -1,5 +1,6 @@
 package org.margomalanuha.spring.labs.models.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.context.annotation.Bean;
 
@@ -17,10 +18,12 @@ public class BasketItem {
     private int id;
 
     @JoinColumn(name = "product_id", nullable = false)
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     private Product product;
 
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 

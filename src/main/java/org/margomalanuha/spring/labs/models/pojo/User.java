@@ -1,5 +1,6 @@
 package org.margomalanuha.spring.labs.models.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -36,6 +37,7 @@ public class User {
     private String address;
 
     @JoinColumn(name = "user_type_id", nullable = false)
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     private UserType userType;
 

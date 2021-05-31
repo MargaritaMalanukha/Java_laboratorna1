@@ -12,6 +12,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @RestController
+@RequestMapping("/api/catalogs")
 public class CatalogController {
 
     private CatalogService catalogService;
@@ -21,35 +22,43 @@ public class CatalogController {
         this.catalogService = catalogService;
     }
 
+    @GetMapping
     public List<Catalog> getAllCatalogs() {
         return catalogService.getAllCatalogs();
     }
 
-    public List<Catalog> getSubdirectoriesById(Integer id) {
+    @GetMapping("/{id}")
+    public List<Catalog> getSubdirectoriesById(@PathVariable Integer id) {
         return catalogService.getSubdirectoriesById(id);
     }
 
+    @PostMapping
     public void createCatalog(String title, Integer catalogId) {
         catalogService.createCatalog(title, catalogId);
     }
 
+    @PutMapping
     public void updateCatalog(Integer catalogId) {
         catalogService.updateCatalog(catalogId);
     }
 
-    public void deleteCatalog(Integer catalogId) {
+    @DeleteMapping("/{catalogId}")
+    public void deleteCatalog(@PathVariable Integer catalogId) {
         catalogService.deleteCatalog(catalogId);
     }
 
-    public void createCatalogInCatalog(String title, Integer catalogId) {
+    @PostMapping("/catalog")
+    public void createCatalogInCatalog(@RequestParam String title, @RequestParam Integer catalogId) {
         catalogService.createCatalogInCatalog(title, catalogId);
     }
 
-    public Catalog getCatalogById(Integer catalogId) {
+    @GetMapping("/catalog/{catalogId}")
+    public Catalog getCatalogById(@PathVariable Integer catalogId) {
         return catalogService.getCatalogById(catalogId);
     }
 
-    public Catalog findCatalogByTitle(String title) {
+    @GetMapping("/catalog/title/{title}")
+    public Catalog findCatalogByTitle(@PathVariable String title) {
         return catalogService.findCatalogByTitle(title);
     }
 
