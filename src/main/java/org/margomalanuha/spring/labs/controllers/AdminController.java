@@ -15,11 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/admin")
 public class AdminController {
 
-    private ProductsService productsService;
     private UserService userService;
 
-    @Autowired
-    public void setProductsService(ProductsService productsService) { this.productsService = productsService; }
     @Autowired
     public void setUserService(UserService userService) { this.userService = userService; }
 

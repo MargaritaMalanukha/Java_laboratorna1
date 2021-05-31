@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.margomalanuha.spring.labs.models.pojo.Catalog;
 import org.margomalanuha.spring.labs.models.pojo.Product;
+import org.margomalanuha.spring.labs.repository.CatalogRepository;
 import org.margomalanuha.spring.labs.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -22,10 +23,12 @@ import java.util.stream.Collectors;
 public class ProductsServiceImpl implements ProductsService {
 
     private ProductRepository repository;
+    private CatalogRepository catalogRepository;
 
     @Autowired
-    public ProductsServiceImpl(ProductRepository repository) {
+    public ProductsServiceImpl(ProductRepository repository, CatalogRepository catalogRepository) {
         this.repository = repository;
+        this.catalogRepository = catalogRepository;
     }
 
     @Override
@@ -40,7 +43,7 @@ public class ProductsServiceImpl implements ProductsService {
 
     @Override
     public Product getProductById(int id) {
-        return repository.findById(id).orElse(new Product("unknown product", 0, new Catalog()));
+        return repository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     @Override
@@ -61,8 +64,7 @@ public class ProductsServiceImpl implements ProductsService {
 
     @Override
     public void createProduct(String title, double price, int catalogId) {
-        Catalog catalog = new Catalog();
-        catalog.setId(catalogId);
+        Catalog catalog = catalogRepository.findById(catalogId).orElseThrow(NoSuchElementException::new);
         repository.save(new Product(title, price, catalog));
     }
 

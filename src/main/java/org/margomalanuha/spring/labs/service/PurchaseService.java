@@ -17,5 +17,6 @@ public interface PurchaseService {
     Purchase addPurchaseToHistory(int userId);
     List<Purchase> getPurchaseHistory(int userId);
     List<Purchase> getAllNonFinishedPurchases();
+    void setPurchaseAsFinished(Purchase purchase);
 
 }

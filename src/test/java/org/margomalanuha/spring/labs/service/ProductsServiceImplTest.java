@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.margomalanuha.spring.labs.models.pojo.Catalog;
 import org.margomalanuha.spring.labs.models.pojo.Product;
+import org.margomalanuha.spring.labs.repository.CatalogRepository;
 import org.margomalanuha.spring.labs.repository.ProductRepository;
+import org.margomalanuha.spring.labs.repository.UserRepository;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -18,12 +20,14 @@ import java.util.Optional;
 public class ProductsServiceImplTest {
 
     private ProductRepository repository;
+    private CatalogRepository catalogRepository;
     private ProductsServiceImpl productsService;
 
     @Before
     public void mock() {
         repository = Mockito.mock(ProductRepository.class);
-        productsService = new ProductsServiceImpl(repository);
+        catalogRepository = Mockito.mock(CatalogRepository.class);
+        productsService = new ProductsServiceImpl(repository, catalogRepository);
     }
 
     @Test
@@ -171,6 +175,7 @@ public class ProductsServiceImplTest {
         catalog.setId(1);
         Product product = new Product(title, price, catalog);
         Mockito.doReturn(product).when(repository).save(product);
+        Mockito.doReturn(Optional.of(catalog)).when(catalogRepository).findById(catalog.getId());
 
         //WHEN
         productsService.createProduct(title, price, catalog.getId());
@@ -199,10 +204,12 @@ public class ProductsServiceImplTest {
     public void deleteProduct_whenProductIsInDatabase_deleteProduct() {
         //GIVEN
         Product product = new Product("milk", 25, new Catalog());
+        product.setId(15);
+        Mockito.doReturn(Optional.of(product)).when(repository).findById(15);
         Mockito.doNothing().when(repository).delete(product);
 
         //WHEN
-        productsService.deleteProduct(product);
+        productsService.deleteProduct(product.getId());
 
         //THEN
         Mockito.verify(repository, Mockito.times(1)).delete(product);

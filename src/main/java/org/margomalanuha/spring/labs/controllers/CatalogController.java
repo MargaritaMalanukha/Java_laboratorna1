@@ -37,11 +37,6 @@ public class CatalogController {
         catalogService.createCatalog(title, catalogId);
     }
 
-    @PutMapping
-    public void updateCatalog(Integer catalogId) {
-        catalogService.updateCatalog(catalogId);
-    }
-
     @DeleteMapping("/{catalogId}")
     public void deleteCatalog(@PathVariable Integer catalogId) {
         catalogService.deleteCatalog(catalogId);

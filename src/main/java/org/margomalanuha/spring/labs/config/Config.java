@@ -1,8 +1,10 @@
 package org.margomalanuha.spring.labs.config;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.context.annotation.*;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.context.WebApplicationContext;
 
 @Configuration
@@ -10,6 +12,8 @@ import org.springframework.web.context.WebApplicationContext;
 @ComponentScan(basePackages = {"org.margomalanuha.spring.labs.repository",
         "org.margomalanuha.spring.labs.service", "org.margomalanuha.spring.labs.controllers",
         "org.margomalanuha.spring.labs.ui", "org.margomalanuha.spring.labs.models.pojo"})
+@EnableJpaRepositories(basePackages = "org.margomalanuha.spring.labs.repository")
+@EntityScan(basePackages = "org.margomalanuha.spring.labs.models.pojo")
 @EnableAutoConfiguration
 public class Config {
 

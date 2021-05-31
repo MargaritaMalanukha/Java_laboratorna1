@@ -7,6 +7,7 @@ import org.margomalanuha.spring.labs.models.pojo.*;
 import org.margomalanuha.spring.labs.repository.BasketItemRepository;
 import org.margomalanuha.spring.labs.repository.ProductRepository;
 import org.margomalanuha.spring.labs.repository.PurchaseRepository;
+import org.margomalanuha.spring.labs.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -26,6 +27,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     private BasketItemRepository basketItemRepository;
     private ProductRepository productRepository;
     private PurchaseRepository purchaseRepository;
+    private UserRepository userRepository;
 
     @Autowired
     public void setBasketItemRepository(BasketItemRepository basketItemRepository) { this.basketItemRepository = basketItemRepository; }
@@ -33,6 +35,8 @@ public class PurchaseServiceImpl implements PurchaseService {
     public void setProductRepository(ProductRepository productRepository) { this.productRepository = productRepository; }
     @Autowired
     public void setPurchaseRepository(PurchaseRepository purchaseRepository) { this.purchaseRepository = purchaseRepository; }
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) { this.userRepository = userRepository;}
 
     @Override
     public void addToBasket(int productId, int userId) {
@@ -73,11 +77,11 @@ public class PurchaseServiceImpl implements PurchaseService {
         StringBuilder cheque = new StringBuilder();
         list.forEach(e -> cheque.append(e.toString()).append(" \n"));
         System.out.println(cheque);
-        User user = new User();
-        user.setId(userId);
-        cheque.append(user.hashCode());
+        User user = userRepository.findById(userId).orElseThrow(NoSuchElementException::new);
         double price = list.stream().mapToDouble(Product::getPrice).sum();
-        return purchaseRepository.save(new Purchase(user, price, cheque.toString()));
+        Purchase purchase = new Purchase(user, price, cheque.toString());
+        purchase.setStatus("not started");
+        return purchaseRepository.save(purchase);
     }
 
     @Override
@@ -93,6 +97,12 @@ public class PurchaseServiceImpl implements PurchaseService {
                 .stream()
                 .filter(e -> e.getStatus().equalsIgnoreCase("not started"))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void setPurchaseAsFinished(Purchase purchase) {
+        purchase.setStatus("finished");
+        purchaseRepository.save(purchase);
     }
 
 

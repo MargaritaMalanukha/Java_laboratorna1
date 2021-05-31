@@ -91,12 +91,12 @@ public class AdminView extends HorizontalLayout {
         Button button = new Button("SAVE", buttonClickEvent -> {
             try {
                 productsService.createProduct(titleProductCreationColumn.getValue(), Double.parseDouble(priceProductCreationColumn.getValue()),
-                        productsService.findProductByTitle(catalogProductCreationColumn.getValue()).getId());
-                titleCatalogCreationColumn.setValue("");
+                        catalogService.findCatalogByTitle(catalogProductCreationColumn.getValue()).getId());
+                titleProductCreationColumn.setValue("");
                 priceProductCreationColumn.setValue("");
                 catalogProductCreationColumn.setValue("");
             } catch (Exception e){
-                Notification.show("Wrong data entered. Please, check your input.");
+                Notification.show("Data error occured! Check your input, please.");
             }
         });
         button.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -111,6 +111,8 @@ public class AdminView extends HorizontalLayout {
             try {
                 catalogService.createCatalog(titleCatalogCreationColumn.getValue(),
                         catalogService.findCatalogByTitle(catalogCatalogCreationColumn.getValue()).getId());
+                titleCatalogCreationColumn.setValue("");
+                catalogCatalogCreationColumn.setValue("");
             } catch (Exception e) {
                 Notification.show("Wrong data entered. Please, check your input.");
             }

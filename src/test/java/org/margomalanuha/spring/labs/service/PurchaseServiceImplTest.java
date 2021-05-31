@@ -8,6 +8,7 @@ import org.margomalanuha.spring.labs.models.pojo.*;
 import org.margomalanuha.spring.labs.repository.BasketItemRepository;
 import org.margomalanuha.spring.labs.repository.ProductRepository;
 import org.margomalanuha.spring.labs.repository.PurchaseRepository;
+import org.margomalanuha.spring.labs.repository.UserRepository;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -21,6 +22,7 @@ public class PurchaseServiceImplTest {
     private PurchaseRepository purchaseRepository;
     private ProductRepository productRepository;
     private BasketItemRepository basketItemRepository;
+    private UserRepository userRepository;
     private PurchaseServiceImpl purchaseService;
 
     @Before
@@ -28,8 +30,9 @@ public class PurchaseServiceImplTest {
         purchaseRepository = Mockito.mock(PurchaseRepository.class);
         productRepository = Mockito.mock(ProductRepository.class);
         basketItemRepository = Mockito.mock(BasketItemRepository.class);
+        userRepository = Mockito.mock(UserRepository.class);
 
-        purchaseService = new PurchaseServiceImpl(basketItemRepository, productRepository, purchaseRepository);
+        purchaseService = new PurchaseServiceImpl(basketItemRepository, productRepository, purchaseRepository, userRepository);
     }
 
     @Test
